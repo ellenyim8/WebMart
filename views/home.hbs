@@ -1,0 +1,20 @@
+{{! PLACEHOLDER }}
+<section>
+  <h1>Home Page PLACEHOLDER</h1>
+
+  <h3>User Status</h3>
+  <p>
+    User logged in?
+    <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
+    <br />
+    Current user is
+    <span style="color:rgb(255, 75, 75)">{{username}}</span>
+    {{#if isAdmin}}
+      and is an 
+      <span style="color:rgb(255, 75, 75)">Admin</span>
+    {{/if}}
+  </p>
+
+  {{!-- PLACEHOLDER LOGOUT --}}
+  <a href="/logout">logout</a>
+</section>

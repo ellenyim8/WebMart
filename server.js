@@ -23,6 +23,8 @@ const { request } = require('http')
 const landingHandler = require('./handlers/landing.js')
 const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
+const registerHandler = require('./handlers/register.js')
+const registerCheckrHandler = require('./handlers/registerCheck.js')
 
 //import models for MongoDB
 const User = require('./models/User')
@@ -115,6 +117,29 @@ app.get('/getUsers', function (req, res) {
     })
 })
 
+app.route('/register')
+  .post(async (req, res) => {
+    const { email, password } = req.body
+    const user = await User.findOne({ email }).lean() //searches through all known users for email
+
+    if (user) {
+      return res.redirect('/register?error=1') //Account already exist
+    }
+    //Create User
+    else{
+      var newUser = User.create({
+        type : 'User',
+        username : email,
+        password : password,
+        email : email
+      })
+      
+      //request.session.account_created = true
+      res.redirect('/login')
+    }
+  })
+
+
 //Not Implemented Yet
 // //create Item Listings
 // app.route('/itemListing')
@@ -140,7 +165,8 @@ app.get('/getUsers', function (req, res) {
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
-
+app.get('/register', registerHandler.getRegister);
+app.get('/registerCheck', registerCheckrHandler.registerCheck);
 
 app.listen(port, () =>
   console.log(`Server listening on http://localhost:${port}`)

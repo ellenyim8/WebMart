@@ -23,7 +23,7 @@ const { request } = require('http')
 const landingHandler = require('./handlers/landing.js')
 const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
-
+const listitemsHandler = require('./handlers/listItems.js') 
 //import models for MongoDB
 const User = require('./models/User')
 
@@ -117,30 +117,30 @@ app.get('/getUsers', function (req, res) {
 
 //Not Implemented Yet
 // //create Item Listings
-// app.route('/itemListing')
-//   .post(async function (req, res) {
-//     const { text, creation_date, seller, starting_bid } = req.body
-//     const newItemListing = new ItemListing({
-//       text: text,
-//       creation_date: creation_date,
-//       seller: seller,
-//       starting_bid: starting_bid
-//     })
+app.route('/itemLists')
+   .post(async function (req, res) {
+     const { text, creation_date, seller, starting_bid } = req.body
+     const newItemListing = new ItemListing({
+       text: text,
+       creation_date: creation_date,
+       seller: seller,
+       starting_bid: starting_bid
+     })
 
-//     newItemListing
-//       .save()
-//       .then(console.log('New item listing created'))
-//       .catch(err => console.log('Error when creating announcements:', err))
-//     res.redirect('/home')
+     newItemListing
+       .save()
+       .then(console.log('New item listing created'))
+       .catch(err => console.log('Error when creating announcements:', err))
+     res.redirect('/home')
 
-//   })
+   })
 
 
 // URL handlers
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
-
+app.get('/listItems', listitemsHandler.getList);
 
 app.listen(port, () =>
   console.log(`Server listening on http://localhost:${port}`)

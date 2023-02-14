@@ -18,8 +18,9 @@ const itemSchema = new Schema({
     default: false
   },
   tag: {
-    type: String,
-    default: ''
+    type: [String],
+    required: true,
+    default: []
   },
   price: {
     type: Number,

@@ -23,6 +23,8 @@ const { request } = require('http')
 const landingHandler = require('./handlers/landing.js')
 const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
+const registerHandler = require('./handlers/register.js')
+const profileHandler = require('./handlers/profile.js')
 
 //import models for MongoDB
 const User = require('./models/User')
@@ -115,6 +117,49 @@ app.get('/getUsers', function (req, res) {
     })
 })
 
+app.route('/register')
+  .post(async (req, res) => {
+    const { email, username, password, confirmPassword } = req.body
+    const mail = await User.findOne({ email }).lean() //searches through all known users for email
+    const user = await User.findOne({username}).lean() //seraches through all known users for username
+
+    if (mail) {
+      console.log("Email already exists")
+      return res.redirect('/register?error=1') //Account already exist
+    }
+    else if (email == '')
+    {
+      return res.redirect('/register?error=1-1')
+    }
+    else if(user)
+    {
+      console.log("Username already exist")
+      return res.redirect('/register?error=2')
+    }
+    else if(username == "")
+    {
+      return res.redirect('/register?error=2-1')
+    }
+    else if(password != confirmPassword)
+    {
+      console.log("password is different")
+      return res.redirect('/register?error=3')
+    }
+    //Create User
+    else{      
+      var newUser = User.create({
+        type : 'User',
+        username : username,
+        password : password,
+        email : email       
+      })
+      
+      res.redirect('/login')
+    }
+  })
+
+
+
 //Not Implemented Yet
 // //create Item Listings
 // app.route('/itemListing')
@@ -140,7 +185,8 @@ app.get('/getUsers', function (req, res) {
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
-
+app.get('/register', registerHandler.getRegister);
+app.get('/profile', profileHandler.getProfile);
 
 app.listen(port, () =>
   console.log(`Server listening on http://localhost:${port}`)

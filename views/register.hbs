@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <h1>Registeration Page</h1>
+        <form action="/register" method="POST" id="register-form">
+        <script>
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const error = urlParams.get('error');
+            window.addEventListener('load',function()
+            {     
+                var psd_msg = document.getElementById('incorrect_password');
+                var username_msg = document.getElementById('incorrect_username');
+                var email_msg = document.getElementById('incorrect_email');
+                psd_msg.style.visibility = "hidden";
+                username_msg.style.visibility = "hidden";
+                switch(error) {
+                case "1":
+                    email_msg.style.visibility = "visible";
+                    email_msg.innerHTML = "<span style=color:red>E-mail already exists! Please enter another</span>";
+                    break;
+                case "1-1":
+                    email_msg.style.visibility = "visible";
+                    email_msg.innerHTML = "<span style=color:red>Please enter Email</span>";
+                    break;
+                case "2":
+                    username_msg.style.visibility = "visible";
+                    username_msg.innerHTML = "<span style=color:red>Username already exists! Please enter another</span>";
+                    break;
+                case "2-1":
+                    username_msg.style.visibility = "visible";
+                    username_msg.innerHTML = "<span style=color:red>Please enter Username</span>";
+                    break;
+                case "3":
+                    psd_msg.style.visibility = "visible";
+                    psd_msg.innerHTML = "<span style=color:red>Password is different</span>";
+                    break;
+                }
+            })
+        </script>
+            <div class="form-group">   
+                <label for="email">Email</label>
+                <input class="form-control" type="email" name="email" placeholder="Enter email"/><br>
+                <p id="incorrect_email" name="incorrect_email"></p>
+             </div>
+            <div class="form-group">   
+                <label for="username">Username</label>
+                <input class="form-control" name="username" placeholder="Enter Username"/><br>
+                <p id="incorrect_username" name="incorrect_username"></p>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+                <label for="confirmPassword">Confirm password</label>
+                <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password">
+                <p id="incorrect_password" name="incorrect_password"></p>
+            {{!-- <input class="login-text" type="submit" value = "login"/><br> --}}
+            <button type="Create" class="btn btn-primary">Create</button>
+            {{!--<div class="login new User href="/registration">create new account</a> </div>--}}
+            </div>            
+        </form>
+        </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+
+</div>
+
+</section>
+

@@ -1,6 +1,6 @@
 function getProfile(request, response){ //handler for profile
     if(request.session.logged_in){
-      console.log("Redirecting to profile page, current user: "+request.session.username);
+      console.log("Redirect to profile page, current user: "+request.session.username);
       response.render('profile', {
         title: 'Auction',
         username: request.session.username,
@@ -11,7 +11,7 @@ function getProfile(request, response){ //handler for profile
        });
     }
     else{
-      response.render('login', {title: 'Auction - Login'});
+      response.render('profile', {title: 'Auction - Profile'});
     }
   }
   

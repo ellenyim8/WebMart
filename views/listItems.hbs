@@ -1,19 +1,73 @@
+{{! PLACEHOLDER }}
 <section>
-<div class="row">
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-        <h1>List Items</h1>
-         <div class="form-group">   
-                <label for="item">PLACEHOLDER FOR EDITS</label>
-                <button type="modify" class="btn btn-primary">Modify</button>
-                <button type="remove" class="btn btn-primary">Remove</button>
-            </div>
-    </div>
-    <div class="col-md-4">
-    <button type="addNew" class="btn btn-primary">Add Item</button>
-    </div>
-</div>
-</section>
 
-<!-- Need a database to hold the items that are added, so we can modify/remove/add. -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
+        <a class="navbar-brand ml-5" href="/logout">
+            <span class="black-text">logout</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {{!-- left side--}}
+            <ul class="navbar-nav">
+            </ul>
+            {{!-- right side--}}
+            <ul class="navbar-nav ml-auto mr-5">
+                <div class="r-flex">
+                    <li class="nav-item ml-4">
+                        <a class="nav-link" href="/">[placeholder link] <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item ml-4">
+                        <a href="/" class="btn btn-info" role="button">Buy Items [placeholder button]</a>
+                    </li>
+                    <li class="nav-item ml-4 mr-4">
+                        <a href="/createItem" class="btn btn-info" role="button">Add New Item</a>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </nav>
+  
+  <div class="content-wrapper"> 
+
+    <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+                <h1><h1>Items List PLACEHOLDER</h1></h1>
+        </div>
+    </div>
+
+    {{!-- Small Space --}}
+    <br>
+
+    <div class="row">
+        <div class="col-md-4 debugBG">
+            <h3>User Status</h3>
+            <p>
+              User logged in?
+              <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
+              <br />
+              Current user is
+              <span style="color:rgb(255, 75, 75)">{{username}}</span>
+              {{#if isAdmin}}
+                and is an 
+                <span style="color:rgb(255, 75, 75)">Admin</span>
+              {{/if}}
+            </p>
+        </div>
+        <div class="col-md-4 debugBG">
+            <h3>Items List Page Description</h2>
+            <p>Shows all items the user is selling currently. [See why I want to combine these?]</p>        
+      </div>
+        <div class="col-md-4 debugBG">
+            <h3>Items List Page Description</h2>
+            <p> Page that contains a list of all items being sold by the user. User can click “add new” to add a new item they are selling to the page.
+                Users can modify, remove all items they list. Buying items, takes users to a page/interface that pops up where they finalize details.
+                Has Setting to make purchase public. </p>
+            
+        </div>
+    </div>
+
+  </div>
+
+</section>

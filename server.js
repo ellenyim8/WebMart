@@ -24,6 +24,8 @@ const landingHandler = require('./handlers/landing.js')
 const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
 const listItemsHandler = require('./handlers/listItems.js')
+const registerHandler = require('./handlers/register.js') 
+const createItemHandler = require('./handlers/createItems.js') 
 
 //import models for MongoDB
 const User = require('./models/User')
@@ -136,12 +138,32 @@ app.route('/itemListing')
 
   })
 
+  //need to change the body though 
+  app.route('/createItem')
+  .post(async function (req, res) {
+    const { text, creation_date, seller, starting_bid } = req.body
+    const newItemListing = new ItemListing({
+      text: text,
+      creation_date: creation_date,
+      seller: seller,
+      starting_bid: starting_bid
+    })
+
+    newItemListing
+      .save()
+      .then(console.log('New item listing created'))
+      .catch(err => console.log('Error when creating announcements:', err))
+    res.redirect('/home')
+
+  })
 
 // URL handlers
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
 app.get('/itemListing', listItemsHandler.getItemList);
+app.get('/register', registerHandler.getRegister);
+app.get('/createItem', createItemHandler.getCreateItem);
 
 app.listen(port, () =>
   console.log(`Server listening on http://localhost:${port}`)

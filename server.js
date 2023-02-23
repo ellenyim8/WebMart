@@ -25,8 +25,11 @@ const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
 const registerHandler = require('./handlers/register.js')
 const listitemsHandler = require('./handlers/listItems.js') 
+const overviewHandler = require('./handlers/overview.js')
+const createItemHandler = require('./handlers/createItem.js')
 //import models for MongoDB
 const User = require('./models/User')
+const Item = require('./models/Item')
 //const { getRegister } = require('./handlers/register.js')
 
 const app = express()
@@ -177,6 +180,24 @@ app.route('/itemLists')
 
    })
 
+   app.route('/createItem')
+   .post(async function (req, res) {
+     const { text, creation_date, seller, starting_bid } = req.body
+     const newItemListing = new ItemListing({
+       text: text,
+       creation_date: creation_date,
+       seller: seller,
+       starting_bid: starting_bid
+     })
+
+     newItemListing
+       .save()
+       .then(console.log('New item listing created'))
+       .catch(err => console.log('Error when creating announcements:', err))
+     res.redirect('/home')
+
+   })
+
 
 // URL handlers
 app.get('/', landingHandler.getLanding);
@@ -184,6 +205,8 @@ app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
 app.get('/register', registerHandler.getRegister);
 app.get('/listItems', listitemsHandler.getList);
+app.get('/overview', overviewHandler.getOverview);
+app.get('/createItem', createItemHandler.getCreateItem); 
 
 app.listen(port, () =>
   console.log(`Server listening on http://localhost:${port}`)

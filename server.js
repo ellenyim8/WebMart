@@ -198,6 +198,7 @@ app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
 app.get('/register', registerHandler.getRegister);
+app.get('/profile', profileHandler.getProfile);
 
 
 app.listen(port, () =>

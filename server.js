@@ -25,9 +25,11 @@ const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
 const registerHandler = require('./handlers/register.js')
 const profileHandler = require('./handlers/profile.js')
+const overviewHandler = require('./handlers/overview.js')
 
 //import models for MongoDB
 const User = require('./models/User')
+const Item = require('./models/Item')
 
 const app = express()
 const port = 8080
@@ -158,7 +160,17 @@ app.route('/register')
     }
   })
 
+  // Overview Page Route
+  app.get('/overview', (req, res) => {
+    console.log('Navigating to Overview/ItemListing Page')
+    res.render('overview')
+  })
 
+  // CreateItem Page Route
+  app.get('/createItem', (req, res) => {
+    console.log('Navigating to crreateItem Page')
+    res.render('createItem')
+  })
 
 //Not Implemented Yet
 // //create Item Listings
@@ -186,7 +198,7 @@ app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
 app.get('/register', registerHandler.getRegister);
-app.get('/profile', profileHandler.getProfile);
+
 
 app.listen(port, () =>
   console.log(`Server listening on http://localhost:${port}`)

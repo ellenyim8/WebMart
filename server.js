@@ -24,6 +24,7 @@ const landingHandler = require('./handlers/landing.js')
 const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
 const registerHandler = require('./handlers/register.js')
+const profileHandler = require('./handlers/profile.js')
 const overviewHandler = require('./handlers/overview.js')
 
 //import models for MongoDB
@@ -197,7 +198,7 @@ app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
 app.get('/register', registerHandler.getRegister);
-app.get('/overview', overviewHandler.getOverview);
+app.get('/profile', profileHandler.getProfile);
 
 
 app.listen(port, () =>

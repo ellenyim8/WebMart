@@ -1,6 +1,7 @@
 {{! PLACEHOLDER }}
 <section>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
         <a class="navbar-brand ml-5" href="/logout">
             <span class="black-text">logout</span>
         </a>
@@ -17,8 +18,11 @@
                     <li class="nav-item ml-4">
                         <a class="nav-link" href="/">[placeholder link] <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item ml-4">
+                        <a href="/" class="btn btn-info" role="button">Buy Items [placeholder button]</a>
+                    </li>
                     <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/overview">Overview/ItemListing <span class="sr-only">(current)</span></a>
+                        <a href="/createItem" class="btn btn-info" role="button">Add New Item</a>
                     </li>
                 </div>
             </ul>
@@ -29,18 +33,10 @@
 
     <div class="row">
         <div class="col-md-6 d-flex align-items-center">
-                <h1><h1>Home Page PLACEHOLDER</h1></h1>
+                <h1><h1>Items List PLACEHOLDER</h1></h1>
         </div>
     </div>
 
-  {{!-- PLACEHOLDER PROFILE PAGE --}}
-  <a href="/profile">View Profile</a>
-
-  {{! -- PLACEHOLDER ITEMS LIST --}}
-  <a href="/itemListing" class="btn btn-info" role="button">Items List</a>
-  {{!-- PLACEHOLDER LOGOUT --}}
-
-  <a href="/logout">logout</a>
     {{!-- Small Space --}}
     <br>
 
@@ -52,7 +48,7 @@
               <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
               <br />
               Current user is
-              <span style="color:rgb(255, 75, 75)">{{userObj.username}}</span>
+              <span style="color:rgb(255, 75, 75)">{{username}}</span>
               {{#if isAdmin}}
                 and is an 
                 <span style="color:rgb(255, 75, 75)">Admin</span>
@@ -60,15 +56,18 @@
             </p>
         </div>
         <div class="col-md-4 debugBG">
-            <h3>Info Text 2</h2>
-            <p>...</p>        
+            <h3>Items List Page Description</h2>
+            <p>Shows all items the user is selling currently. [See why I want to combine these?]</p>        
       </div>
         <div class="col-md-4 debugBG">
-            <h3>Info Text 3</h2>
-            <p>...</p>
+            <h3>Items List Page Description</h2>
+            <p> Page that contains a list of all items being sold by the user. User can click “add new” to add a new item they are selling to the page.
+                Users can modify, remove all items they list. Buying items, takes users to a page/interface that pops up where they finalize details.
+                Has Setting to make purchase public. </p>
+            
         </div>
     </div>
 
   </div>
-  
+
 </section>

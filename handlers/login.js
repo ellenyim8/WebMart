@@ -4,7 +4,7 @@ function getLogin(request, response){
     response.redirect("/home");
   }
   else{
-    response.render('login', {title: 'Auction - Login'});
+    response.render('login', {title: 'WebMart - Login'});
   }
 }
 

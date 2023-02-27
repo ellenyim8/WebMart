@@ -6,7 +6,7 @@ function getHome(request, response){
     //Render Admin View
     if (request.session.type == 'Admin') {
       response.render('home', {
-        title: 'Auction', 
+        title: 'WebMart', 
         username: request.session.username, 
         userObj: request.session.userObj,
         isAdmin: true
@@ -16,7 +16,7 @@ function getHome(request, response){
     //Render User View
     else if (request.session.type == 'User') {
       response.render('home', {
-        title: 'Auction', 
+        title: 'WebMart', 
         username: request.session.username, 
         userObj: request.session.userObj,
         isAdmin: false

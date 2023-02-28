@@ -25,18 +25,34 @@
     </nav>
 
    <div class="content-wrapper"> 
-    <div class="col-md-6 p-5">
-        <h1>{{username}}</h1>
-    </div>
-        <div class="col-md-6 d-flex align-items-center">
-            <div class="">
-                <h1>Personal Information</h1>
-                <p></p>
+     <div class="col-md-6 p-5">
+        <img src="{{img}}" alt="insert profile image" class="img-rounded">
+        <h4>{{username}}</h4>
+    
+     {{!-- Small Space --}}
+    <br>
+
+        <div class="row">
+            <div class="col-md-4 debugBG">
+            <h2>About</h2>
+            <p>
+                Insert information from user: {{about}}
+            </p>
             </div>
+        <div class="col-md-4 debugBG">
+            <h3>Friends List</h2>
+            <p>...</p>        
+      </div>
+        <div class="col-md-4 debugBG">
+            <h3>Items List</h2>
+            <p>...</p>
         </div>
+    </div>
 
     </div>
 <div>
 <section>
+
+
 
 

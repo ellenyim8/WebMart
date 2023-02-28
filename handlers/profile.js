@@ -8,6 +8,7 @@ function getProfile(request, response){ //handler for profile
         email: request.session.email,
         img: request.session.img,
         about: request.session.about,
+        type: request.session.type
        });
     }
     else{

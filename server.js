@@ -30,6 +30,7 @@ const createItemHandler = require('./handlers/createItem.js')
 //import models for MongoDB
 const User = require('./models/User')
 const Item = require('./models/Item')
+const createItem = require('./models/CreateItem') // 
 //const { getRegister } = require('./handlers/register.js')
 
 const app = express()

@@ -37,7 +37,6 @@ const item = new Schema ({
 
 module.exports = mongoose.model('Create Item', item)
 
-//does this go in separate file or server.js? 
 /* 
   exports.items = async () => {
     const items = await createItem.find();

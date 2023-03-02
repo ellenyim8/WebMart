@@ -22,10 +22,10 @@ const { request } = require('http')
 const landingHandler = require('./handlers/landing.js')
 const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
-
 const listItemsHandler = require('./handlers/listItems.js')
 const registerHandler = require('./handlers/register.js') 
 const createItemHandler = require('./handlers/createItems.js') 
+//const createItemHandler = require('./handlers/createItem.js')
 const profileHandler = require('./handlers/profile.js')
 //const overviewHandler = require('./handlers/overview.js')
 
@@ -168,24 +168,30 @@ app.route('/register')
     res.render('createItems')
   })
 
-//Not Implemented Yet
 //create Item Listings
-app.route('/itemListing')
-  .post(async function (req, res) {
-    const { text, creation_date, seller, starting_bid } = req.body
-    const newItemListing = new ItemListing({
-      text: text,
-      creation_date: creation_date,
-      seller: seller,
-      starting_bid: starting_bid
-    })
+app.route('/itemLists')
+   .post(async function (req, res) {
+     const { text, creation_date, seller, starting_bid } = req.body
+     const newItemListing = new ItemListing({
+       text: text,
+       creation_date: creation_date,
+       seller: seller,
+       starting_bid: starting_bid
+     })
 
-    newItemListing
-      .save()
-      .then(console.log('New item listing created'))
-      .catch(err => console.log('Error when creating announcements:', err))
-    res.redirect('/home')
+     newItemListing
+       .save()
+       .then(console.log('New item listing created'))
+       .catch(err => console.log('Error when creating announcements:', err))
+     res.redirect('/home')
 
+   })
+
+
+  // Overview Page Route
+  app.get('/overview', (req, res) => {
+    console.log('Navigating to Overview/ItemListing Page')
+    res.render('overview')
   })
 
   //need to change the body though 
@@ -211,7 +217,9 @@ app.route('/itemListing')
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
+app.get('/overview', overviewHandler.getOverview);
 app.get('/itemListing', listItemsHandler.getItemList);
+//app.get('/listItems', listitemsHandler.getList);
 app.get('/register', registerHandler.getRegister);
 app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);

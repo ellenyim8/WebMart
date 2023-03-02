@@ -1,31 +1,43 @@
 <section>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
-        <a class="navbar-brand ml-5" href="/">
-            <span class="black-text">WebMart</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            {{!-- left side--}}
-            <ul class="navbar-nav">
-            </ul>
-            {{!-- right side--}}
-            <ul class="navbar-nav ml-auto mr-5">
-                <div class="r-flex">
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/login">LOGIN <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/register">REGISTER <span class="sr-only">(current)</span></a>
-                    </li>
-                </div>
-            </ul>
-        </div>
-    </nav>
+   {{!-- TODO: Update navbar, add logo, add links to page sections --}}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
+    
+    <a class="navbar-brand ml-5" href="/">
+      <span class="black-text">WebMart</span>
+    </a>
+    
+    <button 
+        class="navbar-toggler" 
+        type="button" 
+        data-toggle="collapse" 
+        data-target="#navbarNav" 
+        aria-controls="navbarNav" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
+      {{!-- All elements here appear on the left side of the navbar --}}
+      <ul class="navbar-nav"></ul>
+      
+      {{!-- All elements here appear on the right side of the navbar --}}
+      <ul class="navbar-nav ml-auto mr-5 r-flex">
+        <li class="nav-item ml-4">
+          <a class="nav-link" href="/login">LOGIN <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ml-4 mr-4">
+          <a class="nav-link" href="/register">REGISTER <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
 
-<div class="content-wrapper"> 
+    </div>
 
+  </nav>
+    
+  <div class="content-wrapper">
+  
     <div class="row">
         <div class="col-md-6 p-5">
             {{!-- PLACEHOLDER --}}
@@ -34,30 +46,35 @@
         <div class="col-md-6 d-flex align-items-center">
             <div class="">
                 <h1>WebMart</h1>
-                <p>WebMart is an online retail service where users can sell or buy items that are tailored towards each user's preferences.</p>
+
+                <p>WebMart is an online retail service where users can sell or buy items that are tailored towards each user's preferences. WebMart uniquely has an interactive social aspect, where users can stay up-to-date with their friend's purchases and share their own status.</p>
             </div>
-        </div>
-    </div>
 
-    {{!-- Small Space --}}
+        </div>
+
+      </div>
+    </div>
+  
+    {{!-- Space between row elements --}}
     <br>
-
+  
     <div class="row">
-        <div class="col-md-4 debugBG">
-            <h3>Seller</h2>
-            <p>[SELLER INFO]</p>
-            
-        </div>
-        <div class="col-md-4 debugBG">
-            <h3>Buyer</h2>
-            <p>[BUYER INFO]</p>
-        </div>
-        <div class="col-md-4 debugBG">
-            <h3>BLANK</h2>
-            <p>BLANK</p>
-        </div>
+
+      {{!-- TODO: insert text explaining what our app is, its functions, and user capabilities --}}
+      <div class="col-md-4 debugBG">
+        <h3>Seller</h3>
+        <p>[SELLER INFO]</p>
+      </div>
+
+      <div class="col-md-4 debugBG">
+        <h3>Buyer</h3>
+        <p>[BUYER INFO]</p>
+      </div>
+       
+      <div class="col-md-4 debugBG">
+        <h3>BLANK</h3>
+        <p>BLANK</p>
+      </div>
     </div>
-
-</div>
-
+  </div>
 </section>

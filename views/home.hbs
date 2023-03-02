@@ -33,14 +33,18 @@
         </div>
     </div>
 
+  {{!--- PLACEHOLDER ITEMS ---}}
+  <a href="/listItems">ITEMS LIST</a> 
+
   {{!-- PLACEHOLDER PROFILE PAGE --}}
   <a href="/profile">View Profile</a>
 
   {{! -- PLACEHOLDER ITEMS LIST --}}
   <a href="/itemListing" class="btn btn-info" role="button">Items List</a>
-  {{!-- PLACEHOLDER LOGOUT --}}
 
+  {{!-- PLACEHOLDER LOGOUT --}}
   <a href="/logout">logout</a>
+
     {{!-- Small Space --}}
     <br>
 
@@ -52,7 +56,7 @@
               <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
               <br />
               Current user is
-              <span style="color:rgb(255, 75, 75)">{{username}}</span>
+              <span style="color:rgb(255, 75, 75)">{{userObj.username}}</span>
               {{#if isAdmin}}
                 and is an 
                 <span style="color:rgb(255, 75, 75)">Admin</span>
@@ -69,6 +73,5 @@
         </div>
     </div>
 
-  </div>
   
 </section>

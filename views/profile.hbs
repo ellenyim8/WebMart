@@ -1,4 +1,3 @@
-{{! PLACEHOLDER }}
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
         <a class="navbar-brand ml-5" href="/logout">
@@ -24,51 +23,34 @@
             </ul>
         </div>
     </nav>
-  
-  <div class="content-wrapper"> 
 
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-                <h1><h1>Home Page PLACEHOLDER</h1></h1>
-        </div>
-    </div>
-
-  {{!-- PLACEHOLDER PROFILE PAGE --}}
-  <a href="/profile">View Profile</a>
-
-  {{! -- PLACEHOLDER ITEMS LIST --}}
-  <a href="/itemListing" class="btn btn-info" role="button">Items List</a>
-  {{!-- PLACEHOLDER LOGOUT --}}
-
-  <a href="/logout">logout</a>
-    {{!-- Small Space --}}
+   <div class="content-wrapper"> 
+     <div class="col-md-6 p-5">
+        <img src="{{img}}" alt="insert profile image" class="img-rounded">
+        <h4>{{username}}</h4>
+    
+     {{!-- Small Space --}}
     <br>
 
-    <div class="row">
-        <div class="col-md-4 debugBG">
-            <h3>User Status</h3>
+        <div class="row">
+            <div class="col-md-4 debugBG">
+            <h2>About</h2>
             <p>
-              User logged in?
-              <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
-              <br />
-              Current user is
-              <span style="color:rgb(255, 75, 75)">{{userObj.username}}</span>
-              {{#if isAdmin}}
-                and is an 
-                <span style="color:rgb(255, 75, 75)">Admin</span>
-              {{/if}}
+                Insert information from user: {{about}}
             </p>
-        </div>
+            </div>
         <div class="col-md-4 debugBG">
-            <h3>Info Text 2</h2>
+            <h3>Friends List</h2>
             <p>...</p>        
       </div>
         <div class="col-md-4 debugBG">
-            <h3>Info Text 3</h2>
+            <h3>Items List</h2>
             <p>...</p>
         </div>
     </div>
 
-  </div>
-  
-</section>
+    </div>
+<div>
+<section>
+
+

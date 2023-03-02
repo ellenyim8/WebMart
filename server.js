@@ -11,9 +11,8 @@ const hbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const path = require('path')
-const dotenv = require("dotenv")
-dotenv.config({ path: 'Key.env' });
-const mongoose = require('mongoose')
+
+const mongo = require('./modules/MongoConnection.js').getInstance()
 
 //import folders
 const config = require('config')
@@ -23,12 +22,18 @@ const { request } = require('http')
 const landingHandler = require('./handlers/landing.js')
 const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
+
 const listItemsHandler = require('./handlers/listItems.js')
 const registerHandler = require('./handlers/register.js') 
 const createItemHandler = require('./handlers/createItems.js') 
+const profileHandler = require('./handlers/profile.js')
+const overviewHandler = require('./handlers/overview.js')
+
+const userObj = require('./modules/user.js')
 
 //import models for MongoDB
 const User = require('./models/User')
+const Item = require('./models/Item')
 
 const app = express()
 const port = 8080
@@ -62,16 +67,6 @@ app.engine(
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
-// const db = config.get('mongoURL') //pull db information from config
-const db = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.lsugg8d.mongodb.net/?retryWrites=true&w=majority` // pull mongo uri from Key.env variables
-mongoose.connect(
-  db, //connect to db
-  err => {
-    if (err) throw err
-    console.log('Connected to MongoDB!')
-  }
-)
-
 //------------------------------------------------------------------------------------
 
 //TEST USER ACCOUNTS
@@ -89,6 +84,8 @@ app.route('/login')
 
     if (password == user.password) {
       req.session.logged_in = true
+      const curUser = new userObj.BaseUser(user.username, user.email, user.address, user.dateOfEntry, user.img, user.about, user.type)
+      req.session.userObj = curUser
       req.session.username = user.username
       req.session.type = user.type
       res.redirect('/home')
@@ -117,6 +114,59 @@ app.get('/getUsers', function (req, res) {
       res.json(item)
     })
 })
+
+app.route('/register')
+  .post(async (req, res) => {
+    const { email, username, password, confirmPassword } = req.body
+    const mail = await User.findOne({ email }).lean() //searches through all known users for email
+    const user = await User.findOne({username}).lean() //seraches through all known users for username
+
+    if (mail) {
+      console.log("Email already exists")
+      return res.redirect('/register?error=1') //Account already exist
+    }
+    else if (email == '')
+    {
+      return res.redirect('/register?error=1-1')
+    }
+    else if(user)
+    {
+      console.log("Username already exist")
+      return res.redirect('/register?error=2')
+    }
+    else if(username == "")
+    {
+      return res.redirect('/register?error=2-1')
+    }
+    else if(password != confirmPassword)
+    {
+      console.log("password is different")
+      return res.redirect('/register?error=3')
+    }
+    //Create User
+    else{      
+      var newUser = User.create({
+        type : 'User',
+        username : username,
+        password : password,
+        email : email       
+      })
+      
+      res.redirect('/login')
+    }
+  })
+
+  // Overview Page Route
+  app.get('/overview', (req, res) => {
+    console.log('Navigating to Overview/ItemListing Page')
+    res.render('overview')
+  })
+
+  // CreateItem Page Route
+  app.get('/createItem', (req, res) => {
+    console.log('Navigating to crreateItem Page')
+    res.render('createItem')
+  })
 
 //Not Implemented Yet
 //create Item Listings
@@ -164,7 +214,6 @@ app.get('/login', loginHandler.getLogin);
 app.get('/itemListing', listItemsHandler.getItemList);
 app.get('/register', registerHandler.getRegister);
 app.get('/createItem', createItemHandler.getCreateItem);
+app.get('/profile', profileHandler.getProfile);
 
-app.listen(port, () =>
-  console.log(`Server listening on http://localhost:${port}`)
-)
+app.listen(port, () => console.log(`Server listening on http://localhost:${port}`))

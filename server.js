@@ -24,16 +24,16 @@ const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
 const listItemsHandler = require('./handlers/listItems.js')
 const registerHandler = require('./handlers/register.js') 
-const createItemHandler = require('./handlers/createItems.js') 
-//const createItemHandler = require('./handlers/createItem.js')
+//const createItemHandler = require('./handlers/createItems.js') 
+const createItemHandler = require('./handlers/createItem.js')
 const profileHandler = require('./handlers/profile.js')
-//const overviewHandler = require('./handlers/overview.js')
 
 const userObj = require('./modules/user.js')
 
 //import models for MongoDB
 const User = require('./models/User')
 const Item = require('./models/Items')
+const createItem = require('./models/CreateItem') //
 
 const app = express()
 const port = 8080

@@ -217,9 +217,7 @@ app.route('/itemLists')
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
-app.get('/overview', overviewHandler.getOverview);
 app.get('/itemListing', listItemsHandler.getItemList);
-//app.get('/listItems', listitemsHandler.getList);
 app.get('/register', registerHandler.getRegister);
 app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);

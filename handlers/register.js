@@ -11,3 +11,4 @@ function getRegister(request, response){
   module.exports = {
       getRegister
   };
+

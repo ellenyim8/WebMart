@@ -1,8 +1,8 @@
 // const Item = require('../models/Items'); For future use, get list of auction items to display to user
-function getOverview(request, response){
+function getItemList(request, response){
     if(request.session.logged_in){
-      console.log("Redirect to home, current user: "+request.session.username);
-      
+      console.log("Redirect to list items page, current user: "+request.session.username);
+      response.render('listItems', {title: 'WebMart', username: request.session.username}); //loads username as var
       //Render Admin View
       if (request.session.type == 'Admin') {
         response.render('home', {
@@ -22,11 +22,12 @@ function getOverview(request, response){
       }
     }
     else{
-      console.log("Not logged in, redirecting")
-      response.redirect("/login")
+      //console.log("Not logged in, redirecting")
+      //response.redirect("/login")
+      response.render('home', {title: 'WebMart - Home Page'});
     }
   }
   
   module.exports = {
-      getOverview
+      getItemList
   };

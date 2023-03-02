@@ -27,14 +27,13 @@ const registerHandler = require('./handlers/register.js')
 const createItemHandler = require('./handlers/createItems.js') 
 //const createItemHandler = require('./handlers/createItem.js')
 const profileHandler = require('./handlers/profile.js')
-const overviewHandler = require('./handlers/overview.js')
+//const overviewHandler = require('./handlers/overview.js')
 
 const userObj = require('./modules/user.js')
 
 //import models for MongoDB
 const User = require('./models/User')
-const Item = require('./models/Item')
-const createItem = require('./models/CreateItem') // 
+const Item = require('./models/Items')
 
 const app = express()
 const port = 8080
@@ -157,6 +156,17 @@ app.route('/register')
     }
   })
 
+  // List Items Page Route
+  app.get('/itemListing', (req, res) => {
+    console.log('Navigating to Items List Page')
+    res.render('listItems')
+  })
+
+  // CreateItem Page Route
+  app.get('/createItem', (req, res) => {
+    console.log('Navigating to createItem Page')
+    res.render('createItems')
+  })
 
 //create Item Listings
 app.route('/itemLists')

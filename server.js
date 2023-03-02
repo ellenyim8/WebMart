@@ -11,9 +11,8 @@ const hbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const path = require('path')
-const dotenv = require("dotenv")
-dotenv.config({ path: 'Key.env' });
-const mongoose = require('mongoose')
+
+const mongo = require('./modules/MongoConnection.js').getInstance()
 
 //import folders
 const config = require('config')
@@ -29,6 +28,8 @@ const createItemHandler = require('./handlers/createItems.js')
 //const createItemHandler = require('./handlers/createItem.js')
 const profileHandler = require('./handlers/profile.js')
 const overviewHandler = require('./handlers/overview.js')
+
+const userObj = require('./modules/user.js')
 
 //import models for MongoDB
 const User = require('./models/User')
@@ -67,16 +68,6 @@ app.engine(
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
-// const db = config.get('mongoURL') //pull db information from config
-const db = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.lsugg8d.mongodb.net/?retryWrites=true&w=majority` // pull mongo uri from Key.env variables
-mongoose.connect(
-  db, //connect to db
-  err => {
-    if (err) throw err
-    console.log('Connected to MongoDB!')
-  }
-)
-
 //------------------------------------------------------------------------------------
 
 //TEST USER ACCOUNTS
@@ -94,6 +85,8 @@ app.route('/login')
 
     if (password == user.password) {
       req.session.logged_in = true
+      const curUser = new userObj.BaseUser(user.username, user.email, user.address, user.dateOfEntry, user.img, user.about, user.type)
+      req.session.userObj = curUser
       req.session.username = user.username
       req.session.type = user.type
       res.redirect('/home')

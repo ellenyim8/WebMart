@@ -45,5 +45,33 @@
   {{!-- PLACEHOLDER LOGOUT --}}
   <a href="/logout">logout</a>
 
+    {{!-- Small Space --}}
+    <br>
+
+    <div class="row">
+        <div class="col-md-4 debugBG">
+            <h3>User Status</h3>
+            <p>
+              User logged in?
+              <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
+              <br />
+              Current user is
+              <span style="color:rgb(255, 75, 75)">{{userObj.username}}</span>
+              {{#if isAdmin}}
+                and is an 
+                <span style="color:rgb(255, 75, 75)">Admin</span>
+              {{/if}}
+            </p>
+        </div>
+        <div class="col-md-4 debugBG">
+            <h3>Info Text 2</h2>
+            <p>...</p>        
+      </div>
+        <div class="col-md-4 debugBG">
+            <h3>Info Text 3</h2>
+            <p>...</p>
+        </div>
+    </div>
+
   
 </section>

@@ -24,9 +24,9 @@ const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
 const listItemsHandler = require('./handlers/listItems.js')
 const registerHandler = require('./handlers/register.js') 
-//const createItemHandler = require('./handlers/createItems.js') 
-const createItemHandler = require('./handlers/createItem.js')
+const createItemHandler = require('./handlers/createItems.js') 
 const profileHandler = require('./handlers/profile.js')
+//const overviewHandler = require('./handlers/overview.js')
 
 const userObj = require('./modules/user.js')
 
@@ -156,6 +156,17 @@ app.route('/register')
     }
   })
 
+  // List Items Page Route
+  app.get('/itemListing', (req, res) => {
+    console.log('Navigating to Items List Page')
+    res.render('listItems')
+  })
+
+  // CreateItem Page Route
+  app.get('/createItem', (req, res) => {
+    console.log('Navigating to createItem Page')
+    res.render('createItems')
+  })
 
 //create Item Listings
 app.route('/itemLists')
@@ -178,10 +189,10 @@ app.route('/itemLists')
 
 
   // Overview Page Route
-  app.get('/overview', (req, res) => {
-    console.log('Navigating to Overview/ItemListing Page')
-    res.render('overview')
-  })
+  //app.get('/overview', (req, res) => {
+  //  console.log('Navigating to Overview/ItemListing Page')
+  //  res.render('overview')
+  //})
 
   //need to change the body though 
   app.route('/createItem')
@@ -207,7 +218,6 @@ app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
 app.get('/itemListing', listItemsHandler.getItemList);
-//app.get('/listItems', listitemsHandler.getList);
 app.get('/register', registerHandler.getRegister);
 app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);

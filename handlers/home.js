@@ -8,6 +8,7 @@ function getHome(request, response){
       response.render('home', {
         title: 'WebMart', 
         username: request.session.username, 
+        userObj: request.session.userObj,
         isAdmin: true
       });
     }
@@ -17,6 +18,7 @@ function getHome(request, response){
       response.render('home', {
         title: 'WebMart', 
         username: request.session.username, 
+        userObj: request.session.userObj,
         isAdmin: false
       });
     }

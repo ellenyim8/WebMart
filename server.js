@@ -84,7 +84,7 @@ app.route('/login')
 
     if (password == user.password) {
       req.session.logged_in = true
-      const curUser = new userObj.BaseUser(user.username, user.email, user.address, user.dateOfEntry, user.img, user.about, user.type)
+      const curUser = new userObj.BaseUser(user.username, user.email, user.address, user.dateOfEntry, user.img, user.about, user.type, user.friends, user.friend_requests)
       req.session.userObj = curUser
       req.session.username = user.username
       req.session.type = user.type
@@ -206,6 +206,25 @@ app.route('/itemListing')
     res.redirect('/home')
 
   })
+
+app.route('/friend_requests')
+.post(async function (req, res)  {
+  const {username} = req.body
+  const requested_user = await User.findOne({username}).lean() //searches through all known users with target username
+  User.updateOne({name: req.body.userObj.name}, {$push: { 'friend_requests': req.session.username}}) // update requested user's friends list to include the requester
+})
+
+app.route('/accept_friend')
+.post(async function (req, res)  {
+  if (req.body.accept){
+    User.updateOne({name: req.session.userObj.name}, {$push: { 'friends': req.body.username}}) // update current user's friends list to include the requester
+    User.updateOne({name: req.body.username}, {$push: { 'friends': req.session.userObj.name}}) // update requester user's friends list to include the current user
+    User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // update current user's friend request list to not include the requester
+  }
+  else {
+    User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // if rejected, remove from pending requests
+  }
+})
 
 // URL handlers
 app.get('/', landingHandler.getLanding);

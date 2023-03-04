@@ -2,7 +2,7 @@
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
         <a class="navbar-brand ml-5" href="/logout">
-            <span class="black-text">logout</span>
+            <span class="black-text">Logout</span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -18,7 +18,10 @@
                         <a class="nav-link" href="/">[placeholder link] <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/overview">Overview/ItemListing <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/itemListing">View Items List <span class="sr-only">(current)</span></a>
+                    </li>
+                     <li class="nav-item ml-4">
+                        <a class="nav-link" href="/friends">Friends <span class="sr-only">(current)</span></a>
                     </li>
                 </div>
             </ul>
@@ -29,37 +32,39 @@
 
     <div class="row">
         <div class="col-md-6 d-flex align-items-center">
-                <h1><h1>Home Page PLACEHOLDER</h1></h1>
+                <h1><h1>Home Page</h1></h1>
         </div>
     </div>
 
   {{!--- PLACEHOLDER ITEMS ---}}
-  <a href="/listItems">ITEMS LIST</a> 
+  {{!--- <a href="/listItems">ITEMS LIST</a>  ? ---}} 
 
   {{!-- PLACEHOLDER PROFILE PAGE --}}
-  <a href="/profile">View Profile</a>
-
+  <a href="/profile">View Profile </a>
+  &nbsp;
+  
   {{! -- PLACEHOLDER ITEMS LIST --}}
-  <a href="/itemListing" class="btn btn-info" role="button">Items List</a>
+ <a href="/itemListing">View Items List</a>
+    &nbsp;
 
   {{!-- PLACEHOLDER LOGOUT --}}
-  <a href="/logout">logout</a>
 
+  <a href="/logout">Logout</a>
     {{!-- Small Space --}}
     <br>
-
+    <br>
     <div class="row">
         <div class="col-md-4 debugBG">
             <h3>User Status</h3>
             <p>
               User logged in?
-              <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
+              <span style="color:rgb(245, 50, 50)">{{logged_in}}</span>
               <br />
               Current user is
-              <span style="color:rgb(255, 75, 75)">{{userObj.username}}</span>
+              <span style="color:rgb(245, 50, 50)">{{userObj.username}}</span>
               {{#if isAdmin}}
                 and is an 
-                <span style="color:rgb(255, 75, 75)">Admin</span>
+                <span style="color:rgb(245, 50, 50)">Admin</span>
               {{/if}}
             </p>
         </div>

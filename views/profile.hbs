@@ -1,7 +1,7 @@
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
         <a class="navbar-brand ml-5" href="/logout">
-            <span class="black-text">logout</span>
+            <span class="black-text">Logout</span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -17,7 +17,10 @@
                         <a class="nav-link" href="/">[placeholder link] <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/overview">Overview/ItemListing <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/itemListing"> View Item List <span class="sr-only">(current)</span></a>
+                    </li>
+                     <li class="nav-item ml-4">
+                        <a class="nav-link" href="/friends"> Friends <span class="sr-only">(current)</span></a>
                     </li>
                 </div>
             </ul>
@@ -26,10 +29,17 @@
 
    <div class="content-wrapper"> 
      <div class="col-md-6 p-5">
-        <img src="{{img}}" alt="insert profile image" class="img-rounded">
-        <h4>{{username}}</h4>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <div id="profile">
+            <image id="profile-img" src="http://lorempixel.com/100/100" />
+        </div>
+        <input id="img-upload" type="file" 
+            name="profile photo" placeholder="Photo" required="" capture>
+        
+        {{!-- <img src="{{img}}" alt="insert profile image" class="img-rounded">
+        <h4>{{username}}</h4> --}} 
     
-     {{!-- Small Space --}}
     <br>
 
         <div class="row">

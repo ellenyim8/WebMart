@@ -27,14 +27,13 @@ const registerHandler = require('./handlers/register.js')
 const createItemHandler = require('./handlers/createItems.js') 
 //const createItemHandler = require('./handlers/createItem.js')
 const profileHandler = require('./handlers/profile.js')
-const overviewHandler = require('./handlers/overview.js')
 
 const userObj = require('./modules/user.js')
 
 //import models for MongoDB
 const User = require('./models/User')
-const Item = require('./models/Item')
-const createItem = require('./models/CreateItem') // 
+const Item = require('./models/Items')
+const createItem = require('./models/CreateItem') //
 
 const app = express()
 const port = 8080
@@ -85,7 +84,7 @@ app.route('/login')
 
     if (password == user.password) {
       req.session.logged_in = true
-      const curUser = new userObj.BaseUser(user.username, user.email, user.address, user.dateOfEntry, user.img, user.about, user.type)
+      const curUser = new userObj.BaseUser(user.username, user.email, user.address, user.dateOfEntry, user.img, user.about, user.type, user.friends, user.friend_requests)
       req.session.userObj = curUser
       req.session.username = user.username
       req.session.type = user.type
@@ -157,6 +156,17 @@ app.route('/register')
     }
   })
 
+  // List Items Page Route
+  app.get('/itemListing', (req, res) => {
+    console.log('Navigating to Items List Page')
+    res.render('listItems')
+  })
+
+  // CreateItem Page Route
+  app.get('/createItem', (req, res) => {
+    console.log('Navigating to createItem Page')
+    res.render('createItems')
+  })
 
 //create Item Listings
 app.route('/itemLists')
@@ -203,13 +213,30 @@ app.route('/itemLists')
 
   })
 
+app.route('/friend_requests')
+.post(async function (req, res)  {
+  const {username} = req.body
+  const requested_user = await User.findOne({username}).lean() //searches through all known users with target username
+  User.updateOne({name: req.body.userObj.name}, {$push: { 'friend_requests': req.session.username}}) // update requested user's friends list to include the requester
+})
+
+app.route('/accept_friend')
+.post(async function (req, res)  {
+  if (req.body.accept){
+    User.updateOne({name: req.session.userObj.name}, {$push: { 'friends': req.body.username}}) // update current user's friends list to include the requester
+    User.updateOne({name: req.body.username}, {$push: { 'friends': req.session.userObj.name}}) // update requester user's friends list to include the current user
+    User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // update current user's friend request list to not include the requester
+  }
+  else {
+    User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // if rejected, remove from pending requests
+  }
+})
+
 // URL handlers
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
 app.get('/login', loginHandler.getLogin);
-app.get('/overview', overviewHandler.getOverview);
 app.get('/itemListing', listItemsHandler.getItemList);
-//app.get('/listItems', listitemsHandler.getList);
 app.get('/register', registerHandler.getRegister);
 app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);

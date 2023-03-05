@@ -11,7 +11,7 @@ class User{
 }
 
 class BaseUser extends User{
-    constructor(username, email, address, dateOfEntry, img, about, type) {
+    constructor(username, email, address, dateOfEntry, img, about, type, friends, friend_requests) {
         super()
         this.username = username
         this.email = email
@@ -20,6 +20,10 @@ class BaseUser extends User{
         this.img = img
         this.about = about
         this.type = type
+        if(friends && friend_requests){
+            this.friends = friends
+            this.friend_requests = friendRequests
+        }
     }
 
     displayInfo(){

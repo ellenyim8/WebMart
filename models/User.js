@@ -38,7 +38,9 @@ const userSchema = new Schema({
     required: true,
     // specifies if User or Admin
     default: 'User'
-  }
+  },
+  friends: [String],
+  friend_requests: [String]
 })
 
 module.exports = Item = mongoose.model('user', userSchema)

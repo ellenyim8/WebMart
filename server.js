@@ -25,8 +25,8 @@ const loginHandler = require('./handlers/login.js')
 const listItemsHandler = require('./handlers/listItems.js')
 const registerHandler = require('./handlers/register.js') 
 const createItemHandler = require('./handlers/createItems.js') 
+//const createItemHandler = require('./handlers/createItem.js')
 const profileHandler = require('./handlers/profile.js')
-//const overviewHandler = require('./handlers/overview.js')
 
 const userObj = require('./modules/user.js')
 

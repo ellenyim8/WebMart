@@ -20,8 +20,10 @@ class BaseUser extends User{
         this.img = img
         this.about = about
         this.type = type
-        this.friends = this.friends
-        this.friend_requests = friendRequests
+        if(friends && friend_requests){
+            this.friends = friends
+            this.friend_requests = friendRequests
+        }
     }
 
     displayInfo(){

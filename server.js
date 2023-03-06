@@ -27,6 +27,7 @@ const registerHandler = require('./handlers/register.js')
 const createItemHandler = require('./handlers/createItems.js') 
 //const createItemHandler = require('./handlers/createItem.js')
 const profileHandler = require('./handlers/profile.js')
+const friendsListHandler = require('./handlers/friendsList')
 
 const userObj = require('./modules/user.js')
 
@@ -240,5 +241,6 @@ app.get('/itemListing', listItemsHandler.getItemList);
 app.get('/register', registerHandler.getRegister);
 app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);
+app.get('/friends', friendsListHandler.getFriendsList);
 
 app.listen(port, () => console.log(`Server listening on http://localhost:${port}`))

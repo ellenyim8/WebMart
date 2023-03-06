@@ -21,7 +21,7 @@ class BaseUser extends User{
         this.about = about
         this.type = type
         this.friends = this.friends
-        this.friend_requests = friendRequests
+        this.friend_requests = friend_requests
     }
 
     displayInfo(){

@@ -1,5 +1,5 @@
-<section> 
-     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
+<section>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
         <a class="navbar-brand ml-5" href="/logout">
             <span class="black-text">Logout</span>
         </a>
@@ -26,37 +26,18 @@
             </ul>
         </div>
     </nav>
-
-<div class="row">
+    
+    <div class="row">
     <div class="col-md-4">
-    </div>    
+    </div>
     <div class="col-md-4">
-        <h1><br><br>Add New Item<br></h1>
+        <h1><br><br>Friends</h1>
         <form action="/register" method="POST" id="register-form">
         <script>
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const error = urlParams.get('error');
-            window.addEventListener('load',function()
-            {     
-                var item_id = document.getElementById('incorrect_item_id');
-                item_id.style.visibility = "hidden";
-            })
         </script>
-            <div class="form-group">   
-                <label for="itemName">Item Name</label>
-                <input class="form-control" type="name" name="name" placeholder="Enter title"/><br>
-                <p id="item_id" name="item_id"></p>
-             </div>
-            <div class="form-group">   
-                <label for="description">Description</label>
-                <input class="form-control" name="description" placeholder="Enter Description"/><br>
-            </div>
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="price" class="form-control" name="price" placeholder="Enter Price">
-            </div>            
-            <button type="Create" class="btn btn-primary">Create</button>
         </form>
         </div>
     </div>

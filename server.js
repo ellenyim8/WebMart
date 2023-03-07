@@ -27,8 +27,7 @@ const registerHandler = require('./handlers/register.js')
 const createItemHandler = require('./handlers/createItems.js') 
 //const createItemHandler = require('./handlers/createItem.js')
 const profileHandler = require('./handlers/profile.js')
-//const overviewHandler = require('./handlers/overview.js')
-
+const friendHandler = require('./handlers/friendsList.js')
 const userObj = require('./modules/user.js')
 
 //import models for MongoDB
@@ -221,5 +220,5 @@ app.get('/itemListing', listItemsHandler.getItemList);
 app.get('/register', registerHandler.getRegister);
 app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);
-
+app.get('/friends', friendHandler.getFriendsList)
 app.listen(port, () => console.log(`Server listening on http://localhost:${port}`))

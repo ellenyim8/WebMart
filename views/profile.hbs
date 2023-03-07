@@ -37,7 +37,8 @@
         <input id="img-upload" type="file" 
             name="profile photo" placeholder="Photo" required="" capture>
           <div>
-            <h1> {{username}}</h1>
+            <h1>Account Name : {{username}}</h1>
+            <h1>Email : {{email}}</h1>
         </div>
         {{!-- <img src="{{img}}" alt="insert profile image" class="img-rounded">
         <h4>{{username}}</h4> --}} 
@@ -45,16 +46,40 @@
     <br>
 
         <div class="row">
-            <div class="col-md-4 debugBG">
-            <h2>About</h2>
-            <p>
+            <div class="col-md-4 debugBG" id="aboutInfo" style="display: block" onclick="editAvailable()">
+                <h2>About</h2>
+                <p>{{about}}
 
-            </p>
+                </p>
+                <button onclick="editAvailable()">Edit Profile</button>
+            </div>
+            <!--Editing Section Will be hided-->
+            <div class="col-md-4 debugBG" style ="display: none;"  id="aboutEdit">
+                <h2 style = "display: none;">About</h2>
+                <input class="input-text" type = "text" style = "width:220px;height:100px;font-size:30px;">
+                <button onclick=" editDisable()" id="aboutEdit">Conforim Profile</button>
             </div>
         <div class="col-md-4 debugBG">
             <h3>Items List</h2>
             <p>Shows purchase history</p>
         </div>
+        </div>
+        <script>
+            function editAvailable(){
+                $('#aboutInfo').hide();
+                $('#aboutEdit').show();
+            }
+            function editDisable()
+            {
+                var el = document.getElementsByClassName('input-text');
+                for(var i=0; i<el.length; i++){
+	                el[i].value = '';
+                }
+                $('#aboutInfo').show();
+                $('#aboutEdit').hide();
+            }          
+        </script>
+     </div>
     </div>
 
     </div>

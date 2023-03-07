@@ -88,6 +88,9 @@ app.route('/login')
       const curUser = new userObj.BaseUser(user.username, user.email, user.address, user.dateOfEntry, user.img, user.about, user.type, user.friends, user.friend_requests)
       req.session.userObj = curUser
       req.session.username = user.username
+      req.session.email = user.email
+      req.session.img = user.img
+      req.session.about = user.about
       req.session.type = user.type
       res.redirect('/home')
     } 
@@ -214,12 +217,31 @@ app.route('/itemLists')
 
   })
 
+
+app.route('/friend_requests')
+.post(async function (req, res)  {
+  const username = req.body.addUsername
+  const requested_user = await User.findOne({username}).lean() //searches through all known users with target username
+  if(!requested_user)
+  {
+    console.log("NO such account as :" + username)
+  }
+  else{
+    console.log("success : " + requested_user.username)
+    console.log("pushing : " + req.session.userObj.username)
+    User.updateOne({username: requested_user.username}, {$push: { 'friend_requests' : req.session.userObj.username}  
+    }) // update requested user's friends list to include the requester
+  } 
+})
+
+/*
 app.route('/friend_requests')
 .post(async function (req, res)  {
   const {username} = req.body
   const requested_user = await User.findOne({username}).lean() //searches through all known users with target username
-  User.updateOne({name: req.body.userObj.name}, {$push: { 'friend_requests': req.session.username}}) // update requested user's friends list to include the requester
+  User.updateOne({name: username}, {$push: { 'friend_requests': req.session.username}}) // update requested user's friends list to include the requester
 })
+*/
 
 app.route('/accept_friend')
 .post(async function (req, res)  {
@@ -231,6 +253,7 @@ app.route('/accept_friend')
   else {
     User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // if rejected, remove from pending requests
   }
+
 })
 
 // URL handlers

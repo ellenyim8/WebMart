@@ -22,7 +22,7 @@ class BaseUser extends User{
         this.type = type
         if(friends && friend_requests){
             this.friends = friends
-            this.friend_requests = friendRequests
+            this.friend_requests = friend_requests
         }
     }
 

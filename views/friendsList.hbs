@@ -31,7 +31,7 @@
          <div class="row">
             <div class="col-md-4 debugBG">
             <h2>Friends</h2>
-            <p></p>
+            <p>{{userObj.username}}</p>
             </div>
         <div class="col-md-4 debugBG">
             <h3>Friend Request</h2>
@@ -39,7 +39,13 @@
         </div>
          <div class="col-md-4 debugBG">
             <h2>Add Friends</h2>
-            <p></p>
+            <form action = '/friend_requests' method = "POST" id="request-form">
+            <div class="form-group">
+                <label for="addUsername">Enter Username</label>
+                <input type="addUsername" class="form-control" name="addUsername" />
+            </div>
+                <p><button type="submit" id="OK" />Request</button></p>
+            </form>
             </div>
     </div>
 

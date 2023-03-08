@@ -229,9 +229,10 @@ app.route('/friend_requests')
   else{
     console.log("success : " + requested_user.username)
     console.log("pushing : " + req.session.userObj.username)
-    User.updateOne({username: requested_user.username}, {$push: { 'friend_requests' : req.session.userObj.username}  
+    await User.updateOne({username: requested_user.username}, {$addToSet: { 'friend_requests' : req.session.userObj.username}  
     }) // update requested user's friends list to include the requester
-  } 
+  }
+  res.redirect('/friends')
 })
 
 /*

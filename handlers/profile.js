@@ -2,7 +2,7 @@ function getProfile(request, response){ //handler for profile
     if(request.session.logged_in){
       console.log("Redirect to profile page, current user: "+request.session.username);
       response.render('profile', {
-        title: 'Auction',
+        title: 'WebMart',
         username: request.session.username,
         address: request.session.address,
         email: request.session.email,
@@ -11,7 +11,7 @@ function getProfile(request, response){ //handler for profile
        });
     }
     else{
-      response.render('profile', {title: 'Auction - Profile'});
+      response.render('profile', {title: 'WebMart - Profile'});
     }
   }
   

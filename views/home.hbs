@@ -20,6 +20,9 @@
                     <li class="nav-item ml-4 mr-4">
                         <a class="nav-link" href="/itemListing">View Items List <span class="sr-only">(current)</span></a>
                     </li>
+                     <li class="nav-item ml-4">
+                        <a class="nav-link" href="/friends">Friends <span class="sr-only">(current)</span></a>
+                    </li>
                 </div>
             </ul>
         </div>
@@ -33,14 +36,16 @@
         </div>
     </div>
 
+  {{!--- PLACEHOLDER ITEMS ---}}
+  {{!--- <a href="/listItems">ITEMS LIST</a>  ? ---}} 
+
   {{!-- PLACEHOLDER PROFILE PAGE --}}
   <a href="/profile">View Profile </a>
   &nbsp;
   
   {{! -- PLACEHOLDER ITEMS LIST --}}
- {{! <a href="/itemListing">View Items List</a>
+ <a href="/itemListing">View Items List</a>
     &nbsp;
-}}
 
   {{!-- PLACEHOLDER LOGOUT --}}
 
@@ -53,13 +58,13 @@
             <h3>User Status</h3>
             <p>
               User logged in?
-              <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
+              <span style="color:rgb(245, 50, 50)">{{logged_in}}</span>
               <br />
               Current user is
-              <span style="color:rgb(255, 75, 75)">{{userObj.username}}</span>
+              <span style="color:rgb(245, 50, 50)">{{userObj.username}}</span>
               {{#if isAdmin}}
                 and is an 
-                <span style="color:rgb(255, 75, 75)">Admin</span>
+                <span style="color:rgb(245, 50, 50)">Admin</span>
               {{/if}}
             </p>
         </div>

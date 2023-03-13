@@ -1,0 +1,14 @@
+function getFriendProfile(request, response){
+  if(request.session.logged_in){
+      response.render('friendProfile', {title: 'WebMart - friendProfile'});
+  }
+  else
+  {
+    response.redirect("/login");
+  }
+  }
+  
+  module.exports = {
+      getFriendProfile
+  };
+

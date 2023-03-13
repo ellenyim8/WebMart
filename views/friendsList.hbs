@@ -32,10 +32,16 @@
             <div class="col-md-4 debugBG">
             <h2>Friends</h2>
             {{#each userObj.friends}}
-                <form action ='/delete_friend' method="POST" id="request-form">               
+            <li>{{this}}
+                <form action ='/viewProfile' method="GET" id="get-form" style ="display: inline;">               
+                    <input type = "hidden" value = {{this}} name ="friendprofile">
+                    <input type = "submit" value ="View Profile" name = "view">
+                </form>
+                <form action ='/delete_friend' method="POST" id="request-form" style ="display: inline;">               
                     <input type = "hidden" value = {{this}} name ="friendlist">
-                <li>{{this}}<input type = "submit" value ="Delete" name = "delete"></li>
-            </form>
+                <input type = "submit" value ="Delete" name = "delete">
+                </form>
+            </li>
             {{/each}}
             </div>
          <div class="col-md-4 debugBG" id = "menu1">

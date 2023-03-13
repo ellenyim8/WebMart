@@ -29,6 +29,7 @@ const createItemHandler = require('./handlers/createItems.js')
 const profileHandler = require('./handlers/profile.js')
 const friendsListHandler = require('./handlers/friendsList')
 const editProfileHandler = require('./handlers/editProfile.js')
+const friendProfileHandler = require('./handlers/friendProfile.js')
 
 const userObj = require('./modules/user.js')
 
@@ -313,6 +314,14 @@ app.route('/delete_friend')
   res.redirect('/friends');
 })
 
+
+app.route('/viewProfile')
+  .get(async function (req, res) {
+    const username = req.query.friendprofile;
+    console.log(username);
+    const friend =  await User.findOne({username}).lean();
+});
+
 // URL handlers
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
@@ -323,5 +332,6 @@ app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);
 app.get('/friends', friendsListHandler.getFriendsList);
 app.get('/editProfile', editProfileHandler.geteditProfile);
+app.get('/viewProfile', friendProfileHandler.getFriendProfile);
 
 app.listen(port, () => console.log(`Server listening on http://localhost:${port}`))

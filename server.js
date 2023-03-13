@@ -316,11 +316,14 @@ app.route('/delete_friend')
 
 
 app.route('/viewProfile')
-  .get(async function (req, res) {
+  .get(async function (req, res, next) {
     const username = req.query.friendprofile;
     console.log(username);
-    const friend =  await User.findOne({username}).lean();
-});
+    const friend =  await User.findOne({username}).lean();//Find User to view profile
+    req.query.userObj = friend;                           //Set userObj variable as found user
+    next();                                               //Go to next function "middle ware(?) technique"
+}, friendProfileHandler.getFriendProfile);
+
 
 // URL handlers
 app.get('/', landingHandler.getLanding);
@@ -332,6 +335,7 @@ app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);
 app.get('/friends', friendsListHandler.getFriendsList);
 app.get('/editProfile', editProfileHandler.geteditProfile);
-app.get('/viewProfile', friendProfileHandler.getFriendProfile);
+
+//app.get('/viewProfile', friendProfileHandler.getFriendProfile,);
 
 app.listen(port, () => console.log(`Server listening on http://localhost:${port}`))

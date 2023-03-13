@@ -27,6 +27,9 @@ const registerHandler = require('./handlers/register.js')
 const createItemHandler = require('./handlers/createItems.js') 
 //const createItemHandler = require('./handlers/createItem.js')
 const profileHandler = require('./handlers/profile.js')
+const friendsListHandler = require('./handlers/friendsList')
+const editProfileHandler = require('./handlers/editProfile.js')
+const friendProfileHandler = require('./handlers/friendProfile.js')
 
 const userObj = require('./modules/user.js')
 
@@ -87,6 +90,9 @@ app.route('/login')
       const curUser = new userObj.BaseUser(user.username, user.email, user.address, user.dateOfEntry, user.img, user.about, user.type, user.friends, user.friend_requests)
       req.session.userObj = curUser
       req.session.username = user.username
+      req.session.email = user.email
+      req.session.img = user.img
+      req.session.about = user.about
       req.session.type = user.type
       res.redirect('/home')
     } 
@@ -117,41 +123,52 @@ app.get('/getUsers', function (req, res) {
 
 app.route('/register')
   .post(async (req, res) => {
-    const { email, username, password, confirmPassword } = req.body
-    const mail = await User.findOne({ email }).lean() //searches through all known users for email
-    const user = await User.findOne({username}).lean() //seraches through all known users for username
-
-    if (mail) {
-      console.log("Email already exists")
-      return res.redirect('/register?error=1') //Account already exist
-    }
-    else if (email == '')
+      const { email, username, password, confirmPassword } = req.body
+      const mail = await User.findOne({ email }).lean() //searches through all known users for email
+      const user = await User.findOne({username}).lean() //seraches through all known users for username
+      errorpage = "/register?error="
+      haserror = false;
+      if (mail) {
+        console.log("Email already exists")
+        errorpage += "em_1"
+        haserror = true;
+      }
+      else if (email == '')
+      {
+        errorpage += "em_2"
+        haserror = true;
+      }
+      if(user)
+      {
+        console.log("Username already exist")
+        errorpage += "ID_1"
+        haserror = true;
+      }
+      else if(username == "")
+      {
+        errorpage += "ID_2"
+        haserror = true;
+      }
+      if(password != confirmPassword)
+      {
+        console.log("password is different")
+        errorpage += "pw_1"
+        haserror = true;
+      }
+    if(haserror)
     {
-      return res.redirect('/register?error=1-1')
-    }
-    else if(user)
-    {
-      console.log("Username already exist")
-      return res.redirect('/register?error=2')
-    }
-    else if(username == "")
-    {
-      return res.redirect('/register?error=2-1')
-    }
-    else if(password != confirmPassword)
-    {
-      console.log("password is different")
-      return res.redirect('/register?error=3')
+      haserror = false;
+      res.redirect(errorpage)
     }
     //Create User
-    else{      
+    else{
+      console.log("creating user")      
       var newUser = User.create({
         type : 'User',
         username : username,
         password : password,
         email : email       
       })
-      
       res.redirect('/login')
     }
   })
@@ -213,24 +230,100 @@ app.route('/itemLists')
 
   })
 
+
+app.route('/friend_requests')
+.post(async function (req, res)  {
+  const username = req.body.addUsername
+  const requested_user = await User.findOne({username}).lean() //searches through all known users with target username
+  const findInFriendList = await User.findOne({ $and: [{username : req.session.username}, {friends : username}]}).lean();
+  if(!requested_user)
+  {
+    console.log("NO such account as :" + username)
+  }
+  else if(username == req.session.username)
+  {
+    console.log("Can't request friend my self");
+  }
+  else if(findInFriendList)
+  {
+    console.log("Friend already exists");
+  }
+  else{
+    console.log("success : " + requested_user.username)
+    console.log("pushing : " + req.session.userObj.username)
+    await User.updateOne({username: requested_user.username}, {$addToSet: { 'friend_requests' : req.session.userObj.username}  
+    }) // update requested user's friends list to include the requester
+  }
+  res.redirect('/friends')
+})
+
+/*
 app.route('/friend_requests')
 .post(async function (req, res)  {
   const {username} = req.body
   const requested_user = await User.findOne({username}).lean() //searches through all known users with target username
-  User.updateOne({name: req.body.userObj.name}, {$push: { 'friend_requests': req.session.username}}) // update requested user's friends list to include the requester
+  User.updateOne({name: username}, {$push: { 'friend_requests': req.session.username}}) // update requested user's friends list to include the requester
 })
+*/
 
 app.route('/accept_friend')
-.post(async function (req, res)  {
+.post(async function (req, res)  { 
   if (req.body.accept){
-    User.updateOne({name: req.session.userObj.name}, {$push: { 'friends': req.body.username}}) // update current user's friends list to include the requester
-    User.updateOne({name: req.body.username}, {$push: { 'friends': req.session.userObj.name}}) // update requester user's friends list to include the current user
-    User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // update current user's friend request list to not include the requester
+    console.log("Yes");
+    await User.updateOne({username: req.session.username}, {$addToSet: { 'friends': req.body.friendlist}}) // update current user's friends list to include the requester
+    await User.updateOne({username: req.body.friendlist}, {$addToSet: { 'friends': req.session.username}}) // update requester user's friends list to include the current user
+    await User.updateOne({username: req.session.username}, {$pull: { 'friend_requests': req.body.friendlist}}) // update current user's friend request list to not include the requester
   }
   else {
-    User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // if rejected, remove from pending requests
+    console.log("NO");
+    await User.updateOne({username: req.session.username}, {$pull: { 'friend_requests': req.body.friendlist}}) // if rejected, remove from pending requests
   }
+  username =  req.session.userObj.username;
+  const user = await User.findOne({ username }).lean()
+  if(user)
+  {
+    req.session.userObj.friends = user.friends;
+    req.session.userObj.friend_requests = user.friend_requests;
+  }
+  else
+  {
+    console.log("wrong");
+  }
+  res.redirect('/friends');
 })
+
+app.route('/delete_friend')
+.post(async function (req, res)  { 
+  if (req.body.delete){
+    console.log("delete");
+    await User.updateOne({username: req.session.username}, {$pull: { 'friends': req.body.friendlist}}) // update current user's friend request list to not include the requester
+  }
+  else {
+    console.log("NO");
+  }
+  username =  req.session.userObj.username;
+  const user = await User.findOne({ username }).lean()
+  if(user)
+  {
+    req.session.userObj.friends = user.friends;
+  }
+  else
+  {
+    console.log("wrong");
+  }
+  res.redirect('/friends');
+})
+
+
+app.route('/viewProfile')
+  .get(async function (req, res, next) {
+    const username = req.query.friendprofile;
+    console.log(username);
+    const friend =  await User.findOne({username}).lean();//Find User to view profile
+    req.query.userObj = friend;                           //Set userObj variable as found user
+    next();                                               //Go to next function "middle ware(?) technique"
+}, friendProfileHandler.getFriendProfile);
+
 
 // URL handlers
 app.get('/', landingHandler.getLanding);
@@ -240,5 +333,9 @@ app.get('/itemListing', listItemsHandler.getItemList);
 app.get('/register', registerHandler.getRegister);
 app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);
+app.get('/friends', friendsListHandler.getFriendsList);
+app.get('/editProfile', editProfileHandler.geteditProfile);
+
+//app.get('/viewProfile', friendProfileHandler.getFriendProfile,);
 
 app.listen(port, () => console.log(`Server listening on http://localhost:${port}`))

@@ -27,21 +27,26 @@
     <br>
 
    <div class="content-wrapper"> 
-    <div>
+     <div>
          <div class="row">
             <div class="col-md-4 debugBG">
             <h2>Friends</h2>
-            <p>{{userObj.username}}</p>
-            </div>
-        <div class="col-md-4 debugBG" id = "menu1">
-            <h3>Friend Request</h2>
-            {{#each userObj.friend_requests}}
-            <form action ='/accept_friend' method="POST">
-                <li style = "display: block;" input type ="friendlist" value = {{this}} name ="FriendList"></li>
-                <li>{{this}}<input type = "submit" value ="OK"></li>
+            {{#each userObj.friends}}
+                <form action ='/delete_friend' method="POST" id="request-form">               
+                    <input type = "hidden" value = {{this}} name ="friendlist">
+                <li>{{this}}<input type = "submit" value ="Delete" name = "delete"></li>
             </form>
             {{/each}}
-        </div>
+            </div>
+         <div class="col-md-4 debugBG" id = "menu1">
+            <h3>Friend Request</h3>
+            {{#each userObj.friend_requests}}
+            <form action ='/accept_friend' method="POST" id="request-form">               
+                    <input type = "hidden" value = {{this}} name ="friendlist">
+                <li>{{this}}<input type = "submit" value ="Accept" name = "accept"><input type = "submit" value ="Decline" name = "decline"></li>
+            </form>
+            {{/each}}
+         </div>
         <script>
 
         </script>

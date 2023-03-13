@@ -33,10 +33,18 @@
             <h2>Friends</h2>
             <p>{{userObj.username}}</p>
             </div>
-        <div class="col-md-4 debugBG">
+        <div class="col-md-4 debugBG" id = "menu1">
             <h3>Friend Request</h2>
-            <p> </p>
+            {{#each userObj.friend_requests}}
+            <form action ='/accept_friend' method="POST">
+                <li style = "display: block;" input type ="friendlist" value = {{this}} name ="FriendList"></li>
+                <li>{{this}}<input type = "submit" value ="OK"></li>
+            </form>
+            {{/each}}
         </div>
+        <script>
+
+        </script>
          <div class="col-md-4 debugBG">
             <h2>Add Friends</h2>
             <form action = '/friend_requests' method = "POST" id="request-form">

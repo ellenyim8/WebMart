@@ -247,15 +247,18 @@ app.route('/friend_requests')
 
 app.route('/accept_friend')
 .post(async function (req, res)  {
+  /*
   if (req.body.accept){
-    User.updateOne({name: req.session.userObj.name}, {$push: { 'friends': req.body.username}}) // update current user's friends list to include the requester
-    User.updateOne({name: req.body.username}, {$push: { 'friends': req.session.userObj.name}}) // update requester user's friends list to include the current user
-    User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // update current user's friend request list to not include the requester
+    await User.updateOne({name: req.session.userObj.name}, {$push: { 'friends': req.body.username}}) // update current user's friends list to include the requester
+    await User.updateOne({name: req.body.username}, {$push: { 'friends': req.session.userObj.name}}) // update requester user's friends list to include the current user
+    await User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // update current user's friend request list to not include the requester
   }
   else {
-    User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // if rejected, remove from pending requests
+    await User.updateOne({name: req.session.userObj.name}, {$pull: { 'friend_requests': req.body.username}}) // if rejected, remove from pending requests
   }
-
+*/
+console.log(req.body.friendlist);
+console.log(req.body);
 })
 
 // URL handlers

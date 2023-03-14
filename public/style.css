@@ -102,10 +102,6 @@ body::-webkit-scrollbar {
   height: 100vh;
 }
 
-.friendBG{
-   background-color: rgb(199,236,255);
-}
-
 /* profile picture */ 
 #profile {
     width: 150px;

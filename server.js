@@ -121,6 +121,17 @@ app.get('/getUsers', function (req, res) {
     })
 })
 
+//DEBUG RETURNS ALL USERS AS JSON 
+app.get('/getItems', function (req, res) {
+  User.find({
+    type: 'CreateItem',
+  })
+    .lean()
+    .then(item => {
+      res.json(item)
+    })
+})
+
 app.route('/register')
   .post(async (req, res) => {
       const { email, username, password, confirmPassword } = req.body
@@ -173,17 +184,41 @@ app.route('/register')
     }
   })
 
-  // List Items Page Route
+  //List Items Page Route
   app.get('/itemListing', (req, res) => {
     console.log('Navigating to Items List Page')
     res.render('listItems')
   })
 
-  // CreateItem Page Route
+  //CreateItem Page Route
   app.get('/createItem', (req, res) => {
     console.log('Navigating to createItem Page')
     res.render('createItems')
   })
+
+  // //Create Item  
+  // app.route('/createItem')
+  //   .post(async function (req, res) {
+  //     const {id, name, desc, price } = req.body
+  //     const item = await createItem.findOne({ id }).lean() //searches through all known users for id
+
+  //     if (!item) {
+  //       return res.redirect('/createItem') //No item found error
+  //     }
+
+  //     const newItem = new createItem({
+  //       itemID: id, 
+  //       name: name,
+  //       desc: desc,
+  //       price: price  
+  //     })
+  //       newItem
+  //       .save()
+  //       .then(console.log('new item added'))
+  //       .catch(err=>console.log('error when creating item:', err))
+  //       res.redirect('/itemLists')
+  //   })
+  
 
 //create Item Listings
 app.route('/itemLists')
@@ -211,24 +246,24 @@ app.route('/itemLists')
   //  res.render('overview')
   //})
 
-  //need to change the body though 
-  app.route('/createItem')
-  .post(async function (req, res) {
-    const { text, creation_date, seller, starting_bid } = req.body
-    const newItemListing = new ItemListing({
-      text: text,
-      creation_date: creation_date,
-      seller: seller,
-      starting_bid: starting_bid
-    })
+  // //need to change the body though 
+  // app.route('/createItem')
+  // .post(async function (req, res) {
+  //   const { text, creation_date, seller, starting_bid } = req.body
+  //   const newItemListing = new ItemListing({
+  //     text: text,
+  //     creation_date: creation_date,
+  //     seller: seller,
+  //     starting_bid: starting_bid
+  //   })
 
-    newItemListing
-      .save()
-      .then(console.log('New item listing created'))
-      .catch(err => console.log('Error when creating announcements:', err))
-    res.redirect('/home')
+  //   newItemListing
+  //     .save()
+  //     .then(console.log('New item listing created'))
+  //     .catch(err => console.log('Error when creating announcements:', err))
+  //   res.redirect('/home')
 
-  })
+  // })
 
 
 app.route('/friend_requests')

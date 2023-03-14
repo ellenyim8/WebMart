@@ -1,17 +1,52 @@
+<section> 
+     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
+        <a class="navbar-brand ml-5" href="/logout">
+            <span class="black-text">Logout</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {{!-- left side--}}
+            <ul class="navbar-nav">
+            </ul>
+            {{!-- right side--}}
+            <ul class="navbar-nav ml-auto mr-5">
+                <div class="r-flex">
+                    <li class="nav-item ml-4">
+                        <a class="nav-link" href="/"> Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item ml-4 mr-4">
+                        <a class="nav-link" href="/itemListing"> View Item List <span class="sr-only">(current)</span></a>
+                    </li>
+                     <li class="nav-item ml-4">
+                        <a class="nav-link" href="/friends"> Friends <span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </nav>
+
 <div class="row">
     <div class="col-md-4">
-    </div>
+    </div>    
     <div class="col-md-4">
-        <h1><br>Add New Item</h1>
+        <h1><br><br>Add New Item<br></h1>
         <form action="/register" method="POST" id="register-form">
         <script>
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const error = urlParams.get('error');
+            window.addEventListener('load',function()
+            {     
+                var item_id = document.getElementById('incorrect_item_id');
+                item_id.style.visibility = "hidden";
+            })
         </script>
             <div class="form-group">   
                 <label for="itemName">Item Name</label>
                 <input class="form-control" type="name" name="name" placeholder="Enter title"/><br>
+                <p id="item_id" name="item_id"></p>
              </div>
             <div class="form-group">   
                 <label for="description">Description</label>
@@ -29,5 +64,4 @@
     </div>
 
 </div>
-
 </section>

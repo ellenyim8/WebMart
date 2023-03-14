@@ -19,31 +19,33 @@ const item = new Schema ({
 
     desc : {
         type: String,
-        required: true
+        default: ''
+    },
+
+    price : {
+        type: String,
+        required: true,
+        default: ''
+    },
+
+    type: {
+        type: String,
+        required: true,
+        default: 'Seller' // specify if user is seller/buyer
     },
 
     img : {
-        type: String, // 
-
-        required: true
+        type: String,
+        default: ''
     },
 
     location : {
         type: String, 
-        required: true
-    }
+        default: ''
+    },
+
+    listItems: [String]
     
 })
 
-module.exports = mongoose.model('Create Item', item)
-
-/* 
-  exports.items = async () => {
-    const items = await createItem.find();
-    return items; 
-  };
-  
-  exports.itemByID = async id => {
-    const item = await createItem.findById(id);
-  };
-  } */
+module.exports = mongoose.model('Create Item', item);

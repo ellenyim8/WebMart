@@ -14,5 +14,8 @@
     "mongoose": "^6.7.4",
     "nodemon": "^2.0.20",
     "tui-calendar": "^1.15.3"
+  },
+  "devDependencies": {
+    "jest": "^29.4.3"
   }
 }

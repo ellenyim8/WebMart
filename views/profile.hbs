@@ -22,6 +22,9 @@
                      <li class="nav-item ml-4">
                         <a class="nav-link" href="/friends"> Friends <span class="sr-only">(current)</span></a>
                     </li>
+                     <li class="nav-item ml-4">
+                        <a class="nav-link" href="/editProfile"> Edit Profile <span class="sr-only">(current)</span></a>
+                    </li>
                 </div>
             </ul>
         </div>
@@ -66,8 +69,25 @@
         <div class="col-md-4 friendBG" style="display: block; position:absolute; left:1200px; top:50px; height:200px">
             <br>
             <h3>Items List</h2>
-            <p>...</p>
+            <p>Shows purchase history</p>
         </div>
+        </div>
+        <script>
+            function editAvailable(){
+                $('#aboutInfo').hide();
+                $('#aboutEdit').show();
+            }
+            function editDisable()
+            {
+                var el = document.getElementsByClassName('input-text');
+                for(var i=0; i<el.length; i++){
+	                el[i].value = '';
+                }
+                $('#aboutInfo').show();
+                $('#aboutEdit').hide();
+            }          
+        </script>
+     </div>
     </div>
 
     </div>

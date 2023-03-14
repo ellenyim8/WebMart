@@ -96,6 +96,17 @@ body::-webkit-scrollbar {
    background-color: rgb(255, 199, 199);
 }
 
+.fullBG {
+  background-color: rgb(255,248,224);
+  background-size: cover;
+  height: 100vh;
+}
+
+.friendBG{
+   background-color: rgb(199,236,255);
+   border: 2px dashed rgb(0, 0, 0); 
+}
+
 /* profile picture */ 
 #profile {
     width: 150px;

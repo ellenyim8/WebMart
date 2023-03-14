@@ -40,7 +40,8 @@ const userSchema = new Schema({
     default: 'User'
   },
   friends: [String],
-  friend_requests: [String]
+  friend_requests: [String],
+  purchaseHistory: [String],
 })
 
 module.exports = Item = mongoose.model('user', userSchema)

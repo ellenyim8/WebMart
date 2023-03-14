@@ -12,6 +12,25 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const path = require('path')
 
+// multer to I/O image
+const multer = require('multer');
+//const upload = multer({dest:'./public/images/'})
+//multer Upload
+
+const upload = multer({
+  storage: multer.diskStorage({
+      destination(req, file, cb) {
+          cb(null, './public/images/item/');
+      },
+      filename(req, file, cb) {
+          const ext = path.extname(file.originalname);
+          cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+      },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+})
+
+
 const mongo = require('./modules/MongoConnection.js').getInstance()
 
 //import folders
@@ -40,6 +59,8 @@ const createItem = require('./models/CreateItem') //
 
 const app = express()
 const port = 8080
+
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -70,6 +91,7 @@ app.engine(
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
+
 //------------------------------------------------------------------------------------
 
 //TEST USER ACCOUNTS
@@ -80,6 +102,16 @@ app.route('/login')
   .post(async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ email }).lean() //searches through all known users for email
+    const Items = await Item.find({seller : user.username}).lean();
+    const friendItems = await Item.find({$and: [{seller : user.friends}, {purchased : false}]}).lean();
+    const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
+
+    //Latest on Top
+    friendItems.sort(function (a,b){
+      if (a.creationDate < b.creationDate) {return 1;}
+      if (a.creationDate > b.creationDate) {return -1;}
+      return 0;
+      });
 
     if (!user) {
       return res.redirect('/login?error=1') //No user found error
@@ -94,6 +126,10 @@ app.route('/login')
       req.session.img = user.img
       req.session.about = user.about
       req.session.type = user.type
+      req.session.myItems = Items
+      req.session.friendItems = friendItems
+      req.session.purchaseHistory = purchaseHistory
+
       res.redirect('/home')
     } 
     else {
@@ -121,16 +157,24 @@ app.get('/getUsers', function (req, res) {
     })
 })
 
-//DEBUG RETURNS ALL USERS AS JSON 
 app.get('/getItems', function (req, res) {
-  User.find({
-    type: 'CreateItem',
+  Item.find({
+    type: 'Item',
   })
     .lean()
     .then(item => {
       res.json(item)
     })
 })
+
+//DEBUG RETURNS ALL USERS AS JSON 
+
+app.get('/removeAllItems', async function(req, ress){
+  const user = User.findOne(req.session.username).lean();
+  await User.updateOne({username: "Friend1"}, {$pull: {purchaseHistory: "6410448db6960f11ae36cc61"}})
+  //await Item.remove({})
+})
+
 
 app.route('/register')
   .post(async (req, res) => {
@@ -184,41 +228,55 @@ app.route('/register')
     }
   })
 
-  //List Items Page Route
-  app.get('/itemListing', (req, res) => {
-    console.log('Navigating to Items List Page')
-    res.render('listItems')
-  })
-
   //CreateItem Page Route
-  app.get('/createItem', (req, res) => {
-    console.log('Navigating to createItem Page')
-    res.render('createItems')
-  })
+  app.route('/createItem')
+    .post(upload.single('chooseFile'), function(req,res){
+        const { itemName, itemDescription, itemPrice } = req.body    
+        var imgname;
+        if(!req.file) { imgname = "default.png"}
+        else{ imgname = req.file.filename}
+        errorpage = "/createItem?error="
+        haserror = false;
+        if(itemName == "")
+        {
+          errorpage += "nName_"
+          haserror = true;
+        }
+        if(itemDescription == "")
+        {
+          errorpage += "nDes_"
+          haserror = true;
+        }
+        if(itemPrice == "")
+        {
+          errorpage += "nPrice_"
+          haserror = true;
+        }
+      if(haserror)
+      {
+        haserror = false;
+        res.redirect(errorpage)
+      }
+      else
+      {
+        
+        var newItem = Item.create({
+          name : itemName,
+          seller : req.session.userObj.username,
+          description : itemDescription,
+          price : itemPrice,
+          image : imgname   
+        })
 
-  // //Create Item  
-  // app.route('/createItem')
-  //   .post(async function (req, res) {
-  //     const {id, name, desc, price } = req.body
-  //     const item = await createItem.findOne({ id }).lean() //searches through all known users for id
+        res.redirect('/createItem_midpoint')
+      }
+    }) 
+    app.get('/createItem_midpoint', async function (req, res) {
+      const Items = await Item.find({seller : req.session.userObj.username}).lean();
+      req.session.myItems = Items;
+      res.redirect('/itemListing')
+    })
 
-  //     if (!item) {
-  //       return res.redirect('/createItem') //No item found error
-  //     }
-
-  //     const newItem = new createItem({
-  //       itemID: id, 
-  //       name: name,
-  //       desc: desc,
-  //       price: price  
-  //     })
-  //       newItem
-  //       .save()
-  //       .then(console.log('new item added'))
-  //       .catch(err=>console.log('error when creating item:', err))
-  //       res.redirect('/itemLists')
-  //   })
-  
 
 //create Item Listings
 app.route('/itemLists')
@@ -236,8 +294,22 @@ app.route('/itemLists')
        .then(console.log('New item listing created'))
        .catch(err => console.log('Error when creating announcements:', err))
      res.redirect('/home')
-
    })
+
+app.route('/deleteItem')
+.post(async function (req, res)  { 
+  if (req.body.delete){
+    console.log("delete");
+    console.log(req.body.item)
+    await Item.remove({_id : req.body.item});
+  }
+  else{
+    console.log("wrong");
+  }
+  const Items = await Item.find({seller : req.session.userObj.username}).lean();
+  req.session.myItems = Items;
+  res.redirect('/itemListing');
+})
 
 
   // Overview Page Route
@@ -246,7 +318,8 @@ app.route('/itemLists')
     res.render('overview')
   })
 
-  //need to change the body though 
+  //need to change the body though
+  /*
   app.route('/createItem')
   .post(async function (req, res) {
     const { text, creation_date, seller, starting_bid } = req.body
@@ -256,15 +329,36 @@ app.route('/itemLists')
       seller: seller,
       starting_bid: starting_bid
     })
-
     newItemListing
       .save()
       .then(console.log('New item listing created'))
-      .catch(err => console.log('Error when creating announcements:', err))
+      .catch(err => console.log('Error when creating announcements:', err)) 
     res.redirect('/home')
-
   })
-
+*/
+app.route('/buyItem')
+  .post(async function (req, res)  { 
+    if (req.body.buy){
+      const username = req.session.username;
+      await User.updateOne({username: username}, {$addToSet: { 'purchaseHistory': req.body.item}}) //Update Item ID in to purchase History
+      await Item.updateOne({_id : req.body.item}, {$set : {purchased : true}});     
+      const user = await User.findOne({username}).lean();                                                               //Remove purchased Item from table
+      const friendItems = await Item.find({$and: [{seller : user.friends}, {purchased : false}]}).lean();                                     //Update Session 
+      const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
+      console.log(friendItems);
+      //Latest on Top
+      friendItems.sort(function (a,b){
+        if (a.creationDate < b.creationDate) {return 1;}
+        if (a.creationDate > b.creationDate) {return -1;}
+        return 0;
+        });
+        
+        req.session.friendItems = friendItems;
+        req.session.purchaseHistory = purchaseHistory;
+        console.log(req.session.purchaseHistory);
+    }
+    res.redirect('/home')
+  });
 
 app.route('/friend_requests')
 .post(async function (req, res)  {
@@ -291,15 +385,6 @@ app.route('/friend_requests')
   }
   res.redirect('/friends')
 })
-
-/*
-app.route('/friend_requests')
-.post(async function (req, res)  {
-  const {username} = req.body
-  const requested_user = await User.findOne({username}).lean() //searches through all known users with target username
-  User.updateOne({name: username}, {$push: { 'friend_requests': req.session.username}}) // update requested user's friends list to include the requester
-})
-*/
 
 app.route('/accept_friend')
 .post(async function (req, res)  { 
@@ -358,6 +443,14 @@ app.route('/viewProfile')
     req.query.userObj = friend;                           //Set userObj variable as found user
     next();                                               //Go to next function "middle ware(?) technique"
 }, friendProfileHandler.getFriendProfile);
+
+app.route('/changeprofile')
+.get(async function (req,res){
+    const username = req.session.userObj.username;
+    const user = await User.findOne({username}).lean();
+
+    await User.updateOne({username: user.username}, {$set : {img: "Friend2.png"}})
+});
 
 
 // URL handlers

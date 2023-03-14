@@ -14,7 +14,7 @@
             <ul class="navbar-nav ml-auto mr-5">
                 <div class="r-flex">
                     <li class="nav-item ml-4">
-                        <a class="nav-link" href="/">[placeholder link] <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ml-4 mr-4">
                         <a class="nav-link" href="/itemListing"> View Item List <span class="sr-only">(current)</span></a>
@@ -32,16 +32,12 @@
 
    <div class="content-wrapper"> 
      <div class="col-md-6 p-5">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <div id="profile">
-            <image id="profile-img" src="http://lorempixel.com/100/100" />
+            <img src="/images/profile/{{userObj.img}}"  id="profile-img"></img>
         </div>
-        <input id="img-upload" type="file" 
-            name="profile photo" placeholder="Photo" required="" capture>
           <div>
-            <h1>Account Name : {{username}}</h1>
-            <h1>Email : {{email}}</h1>
+            <h1>Account Name : {{userObj.username}}</h1>
+            <h1>Email : {{userObj.email}}</h1>
         </div>
         {{!-- <img src="{{img}}" alt="insert profile image" class="img-rounded">
         <h4>{{username}}</h4> --}} 
@@ -62,26 +58,22 @@
                 <input class="input-text" type = "text" style = "width:220px;height:100px;font-size:30px;">
                 <button onclick=" editDisable()" id="aboutEdit">Conforim Profile</button>
             </div>
-        <div class="col-md-4 debugBG">
+        
             <h3>Items List</h2>
-            <p>Shows purchase history</p>
+            {{#each purchaseHistory}}            
+            <div class="col-md-6 debugBG">
+                    <img src="/images/item/{{this.image}}"  id="item-img" width="130px"></img>
+                    <h4>{{this.name}}</h4>
+                    <h5>Price : ${{this.price}}</h5>
+                    <h5><P>Description of Item :</P></h5>
+                    <p>{{this.description}}</p>
+                    <p>Selling by : {{this.seller}}</p>
+                    <p>Uploaded on : {{this.creationDate}}</p>
+                    {{!--Here is fomring to delete items--}}
+            </div>
+        {{/each}} 
+        
         </div>
-        </div>
-        <script>
-            function editAvailable(){
-                $('#aboutInfo').hide();
-                $('#aboutEdit').show();
-            }
-            function editDisable()
-            {
-                var el = document.getElementsByClassName('input-text');
-                for(var i=0; i<el.length; i++){
-	                el[i].value = '';
-                }
-                $('#aboutInfo').show();
-                $('#aboutEdit').hide();
-            }          
-        </script>
      </div>
     </div>
 

@@ -7,6 +7,11 @@ const itemSchema = new Schema({
     required: true,
     default: 'Unnamed Item'
   },
+  seller:{
+    type: String,
+    required: true,
+    deault: 'Admin'
+  },
   creationDate: {
     type: Date,
     required: true,
@@ -30,6 +35,10 @@ const itemSchema = new Schema({
     type: String,
     default: 'Empty'
   },
+  image:{
+    type: String,
+    default : 'default.png'
+  }
 })
 
 module.exports = mongoose.model('Item', itemSchema)

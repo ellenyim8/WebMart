@@ -16,27 +16,30 @@
                 var email_msg = document.getElementById('incorrect_email');
                 psd_msg.style.visibility = "hidden";
                 username_msg.style.visibility = "hidden";
-                switch(error) {
-                case "1":
+                if(error.includes("em_1"))
+                {
                     email_msg.style.visibility = "visible";
                     email_msg.innerHTML = "<span style=color:red>E-mail already exists! Please enter another</span>";
-                    break;
-                case "1-1":
+                }
+                if(error.includes("em_2"))
+                {
                     email_msg.style.visibility = "visible";
                     email_msg.innerHTML = "<span style=color:red>Please enter Email</span>";
-                    break;
-                case "2":
+                }
+                if(error.includes("ID_1"))
+                {
                     username_msg.style.visibility = "visible";
                     username_msg.innerHTML = "<span style=color:red>Username already exists! Please enter another</span>";
-                    break;
-                case "2-1":
+                }
+                if(error.includes("ID_2"))
+                {
                     username_msg.style.visibility = "visible";
                     username_msg.innerHTML = "<span style=color:red>Please enter Username</span>";
-                    break;
-                case "3":
+                }
+                if(error.includes("pw_1"))
+                {
                     psd_msg.style.visibility = "visible";
                     psd_msg.innerHTML = "<span style=color:red>Password is different</span>";
-                    break;
                 }
             })
         </script>

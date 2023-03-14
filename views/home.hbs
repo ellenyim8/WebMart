@@ -1,60 +1,67 @@
 {{! PLACEHOLDER }}
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
-        <a class="navbar-brand ml-5" href="/logout">
-            <span class="black-text">Logout</span>
+        <a class="nav-item ml-4 mr-4" href="/logout">
+            <span class="nav-link">Logout</span>
+        </a>
+        <a class="nav-item ml-4 mr-4" href="/profile">
+            <span class="nav-link">View Profile</span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button>   
         <div class="collapse navbar-collapse" id="navbarNav">
-            {{!-- left side--}}
-            <ul class="navbar-nav">
-            </ul>
             {{!-- right side--}}
             <ul class="navbar-nav ml-auto mr-5">
                 <div class="r-flex">
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/">[placeholder link] <span class="sr-only">(current)</span></a>
+                    <li class="nav-item ml-4 mr-4">
+                        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ml-4 mr-4">
                         <a class="nav-link" href="/itemListing">View Items List <span class="sr-only">(current)</span></a>
                     </li>
-                     <li class="nav-item ml-4">
+                     <li class="nav-item ml-4 mr-4">
                         <a class="nav-link" href="/friends">Friends <span class="sr-only">(current)</span></a>
                     </li>
                 </div>
             </ul>
         </div>
     </nav>
-  
-  <div class="content-wrapper"> 
 
-    <div class="row">
+  <br> 
+  <br> 
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h2 class="jumbotron-heading">Home Page</h2>
+        </div>
+    </section>
+  {{!--- <div class="row">
         <div class="col-md-6 d-flex align-items-center">
                 <h1><h1>Home Page</h1></h1>
         </div>
-    </div>
+    </div> --}}
+
+  <div class="content-wrapper"> 
 
   {{!--- PLACEHOLDER ITEMS ---}}
   {{!--- <a href="/listItems">ITEMS LIST</a>  ? ---}} 
 
-  {{!-- PLACEHOLDER PROFILE PAGE --}}
+  {{!-- PLACEHOLDER PROFILE PAGE 
   <a href="/profile">View Profile </a>
-  &nbsp;
+  &nbsp;--}}
   
-  {{! -- PLACEHOLDER ITEMS LIST --}}
+  {{! -- PLACEHOLDER ITEMS LIST 
  <a href="/itemListing">View Items List</a>
-    &nbsp;
+    &nbsp;--}}
 
   {{!-- PLACEHOLDER LOGOUT --}}
-
-  <a href="/logout">Logout</a>
+  {{!-- <a href="/logout">Logout</a> --}}
+  
     {{!-- Small Space --}}
-    <br>
-    <br>
+
     <div class="row">
-        <div class="col-md-4 debugBG">
+        <div class="container-fluid ">
             <h3>User Status</h3>
             <p>
               User logged in?
@@ -68,15 +75,86 @@
               {{/if}}
             </p>
         </div>
-        <div class="col-md-4 debugBG">
-            <h3>Info Text 2</h2>
-            <p>...</p>        
-      </div>
-        <div class="col-md-4 debugBG">
-            <h3>Info Text 3</h2>
-            <p>...</p>
-        </div>
-    </div>
+         </div>
 
+        <center> 
+     
+        <div class="col-sm-9 debugBG">
+            <br>
+            <h3 class="white-text">{{userObj.username}} Friends </a></h2>
+            <div class="row">
+
+                <div class="col-xs-8 col-sm-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-header"> <p class="card-text">friend1 username </p></div>
+                        <div class="card-body">
+                        <p class="card-text">description of what friend1 just bought.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            {{!--<div class="btn-group">
+                            </div>
+                            <small class="text-muted">9 mins</small>--}}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-header"> <p class="card-text">friend1 username </p></div>
+                        <div class="card-body">
+                        <p class="card-text">description of what friend1 just bought.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            {{!--<div class="btn-group">
+                            </div>
+                            <small class="text-muted">9 mins</small>--}}
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                 <div class="col-xs-8 col-sm-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-header"> <p class="card-text">friend1 username </p></div>
+                        <div class="card-body">
+                        <p class="card-text">description of what friend1 just bought.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            {{!--<div class="btn-group">
+                            </div>
+                            <small class="text-muted">9 mins</small>--}}
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-4 col-sm-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-header"> <p class="card-text">friend1 username </p></div>
+                        <div class="card-body">
+                        <p class="card-text">description of what friend1 just bought.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            {{!--<div class="btn-group">
+                            </div>
+                            <small class="text-muted">9 mins</small>--}}
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <br> 
+        <br> 
+
+        <div class=".col-md-6 .col-md-offset-3 debugBG">
+            <br>
+            <h3 class="white-text">Recommended Items</h2>
+            <p>...</p>        
+        </div>
+
+        </center>
   
 </section>

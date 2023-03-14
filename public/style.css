@@ -96,12 +96,6 @@ body::-webkit-scrollbar {
    background-color: rgb(255, 199, 199);
 }
 
-.fullBG {
-  background-color: rgb(255,248,224);
-  background-size: cover;
-  height: 100vh;
-}
-
 /* profile picture */ 
 #profile {
     width: 150px;

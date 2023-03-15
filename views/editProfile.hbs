@@ -38,45 +38,6 @@
 
     <div class="col-md-4">
         <h1>Edit Profile</h1>
-        <form action="/register" method="POST" id="register-form">
-        <script>
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const error = urlParams.get('error');
-            window.addEventListener('load',function()
-            {     
-                var psd_msg = document.getElementById('incorrect_password');
-                var username_msg = document.getElementById('incorrect_username');
-                var email_msg = document.getElementById('incorrect_email');
-                psd_msg.style.visibility = "hidden";
-                username_msg.style.visibility = "hidden";
-                if(error.includes("em_1"))
-                {
-                    email_msg.style.visibility = "visible";
-                    email_msg.innerHTML = "<span style=color:red>E-mail already exists! Please enter another</span>";
-                }
-                if(error.includes("em_2"))
-                {
-                    email_msg.style.visibility = "visible";
-                    email_msg.innerHTML = "<span style=color:red>Please enter Email</span>";
-                }
-                if(error.includes("ID_1"))
-                {
-                    username_msg.style.visibility = "visible";
-                    username_msg.innerHTML = "<span style=color:red>Username already exists! Please enter another</span>";
-                }
-                if(error.includes("ID_2"))
-                {
-                    username_msg.style.visibility = "visible";
-                    username_msg.innerHTML = "<span style=color:red>Please enter Username</span>";
-                }
-                if(error.includes("pw_1"))
-                {
-                    psd_msg.style.visibility = "visible";
-                    psd_msg.innerHTML = "<span style=color:red>Password is different</span>";
-                }
-            })
-        </script>
             <div class="form-group">   
                 <label for="email">Email</label>
                 <input class="form-control" type="email" name="email" placeholder="Enter new email"/><br>
@@ -101,7 +62,6 @@
             <button type="Create" class="btn btn-primary">Confrim Changes</button>
             {{!--<div class="login new User href="/registration">create new account</a> </div>--}}
             </div>            
-        </form>
         </div>
     </div>
     <div class="col-md-4">

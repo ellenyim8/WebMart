@@ -22,6 +22,11 @@ const itemSchema = new Schema({
     required: true,
     default: false
   },
+  confirmed: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
   tag: {
     type: [String],
     required: true,

@@ -102,7 +102,8 @@ app.route('/login')
   .post(async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ email }).lean() //searches through all known users for email
-    const Items = await Item.find({seller : user.username}).lean();
+    const sellingItems = await Item.find({$and :[{seller : user.username}, {purchased : false}]}).lean();
+    const soldItems = await Item.find({$and :[{seller : user.username}, {purchased : true}]}).lean();
     const friendItems = await Item.find({$and: [{seller : user.friends}, {purchased : false}]}).lean();
     const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
 
@@ -126,7 +127,8 @@ app.route('/login')
       req.session.img = user.img
       req.session.about = user.about
       req.session.type = user.type
-      req.session.myItems = Items
+      req.session.myItems = sellingItems
+      req.session.soldItems = soldItems
       req.session.friendItems = friendItems
       req.session.purchaseHistory = purchaseHistory
 
@@ -171,8 +173,8 @@ app.get('/getItems', function (req, res) {
 
 app.get('/removeAllItems', async function(req, ress){
   const user = User.findOne(req.session.username).lean();
-  await User.updateOne({username: "Friend1"}, {$pull: {purchaseHistory: "6410448db6960f11ae36cc61"}})
-  //await Item.remove({})
+  //await User.updateOne({username: "Friend4"}, {$pull: {purchaseHistory: "641138e64680e90bb328eb3e"}})
+  await Item.remove({})
 })
 
 
@@ -254,7 +256,7 @@ app.route('/register')
         }
       if(haserror)
       {
-        haserror = false;
+        haserror = false;delay
         res.redirect(errorpage)
       }
       else
@@ -270,9 +272,13 @@ app.route('/register')
 
         res.redirect('/createItem_midpoint')
       }
-    }) 
+    })
+    
     app.get('/createItem_midpoint', async function (req, res) {
-      const Items = await Item.find({seller : req.session.userObj.username}).lean();
+      const Items = await Item.find({$and :[{seller : req.session.username}, {purchased : false}]}).lean();
+      const Items2 = await Item.find({seller : req.session.username}).lean(); //give delay();;
+      console.log(Items);
+      //console.log(Items2);
       req.session.myItems = Items;
       res.redirect('/itemListing')
     })
@@ -306,10 +312,29 @@ app.route('/deleteItem')
   else{
     console.log("wrong");
   }
-  const Items = await Item.find({seller : req.session.userObj.username}).lean();
-  req.session.myItems = Items;
+  const Items = await Item.find({$and :[{seller : req.session.username}, {purchased : false}]}).lean();
+  req.session.myItems = Items; 
   res.redirect('/itemListing');
 })
+
+app.route('/confirmPurchase')
+  .post(async function(req,res){
+    if (req.body.delete){
+      console.log("confirmed");
+      console.log(req.body.item)
+      await Item.updateOne({_id : req.body.item}, {$set : {confirmed : true}});  
+    }
+    else{
+      console.log("wrong");
+    }
+    const username = req.session.userObj.username;
+    const user = await User.findOne({username}).lean(); 
+    const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}, {confirmed : false}]}).lean();
+    req.session.purchaseHistory = purchaseHistory;
+
+    res.redirect('/profile');
+  })
+
 
 
   // Overview Page Route

@@ -70,6 +70,10 @@
                     <p>Selling by : {{this.seller}}</p>
                     <p>Uploaded on : {{this.creationDate}}</p>
                     {{!--Here is fomring to delete items--}}
+                    <form action ='/confirmPurchase' method="POST" id="request-form">               
+                        <input type = "hidden" value = {{this._id}} name ="item">
+                        <input type = "submit" value = "Confirm Purchase" name = "delete">
+                    </form>
             </div>
         {{/each}} 
         

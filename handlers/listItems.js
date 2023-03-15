@@ -9,6 +9,7 @@ function getItemList(request, response){
           title: 'WebMart', 
           username: request.session.username, 
           myItems: request.session.myItems,
+          soldItems : request.session.soldItems,
           isAdmin: true
         });
       } 
@@ -18,6 +19,7 @@ function getItemList(request, response){
           title: 'WebMart', 
           username: request.session.username,
           myItems: request.session.myItems,
+          soldItems : request.session.soldItems,
           isAdmin: false
         });
         console.log("logedin")

@@ -35,7 +35,6 @@
                 <h1><h1>My Items List</h1></h1>
         </div>
     </div>
-
     {{!-- Small Space --}}
     <br>
     <br>
@@ -54,6 +53,27 @@
                         <input type = "submit" value = "cancel" name = "delete">
                     </form>
             </div>
-        {{/each}}    
+        {{/each}}
+
+          <h1><h1>Sold Item List</h1></h1>
+         {{#each soldItems}}            
+            <div class="col-md-4 debugBG">
+                    <img src="/images/item/{{this.image}}"  id="profile-img" width="130px"></img>
+                    <h4>{{this.name}}</h4>
+                    <h5>Price : ${{this.price}}</h5>
+                    <h5><P>Description of Item :</P></h5>
+                    <p>{{this.description}}</p>
+                    <p>Selling by : {{this.seller}}</p>
+                    <p>Uploaded on : {{this.creationDate}}</p>
+                    {{!--Here is fomring to delete items
+                    <form action ='/deleteItem' method="POST" id="request-form">               
+                        <input type = "hidden" value = {{this._id}} name ="soldItem">
+                        <input type = "submit" value = "cancel" name = "soldDelete">
+                    </form>
+                    --}}
+            </div>
+        {{/each}}
+        </div>
+    </div>    
      </div>
 </section>

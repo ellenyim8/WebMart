@@ -230,6 +230,26 @@ app.route('/register')
     }
   })
 
+  app.route('/delete_user')
+  .post(async function (req, res)  {
+    const user_to_delete = req.body.username
+    await User.deleteOne({username : user_to_delete})
+    res.redirect('/')
+  })
+
+  app.route('/delete_item')
+  .post(async function (req, res)  {
+    const item_to_delete = req.body.item_id
+    await Item.deleteOne({name : item_to_delete})
+    res.redirect('/') // CHANGE THIS TO REFRESH PAGE
+  })
+
+  //List Items Page Route
+  app.get('/itemListing', (req, res) => {
+    console.log('Navigating to Items List Page')
+    res.render('listItems')
+  })
+
   //CreateItem Page Route
   app.route('/createItem')
     .post(upload.single('chooseFile'), function(req,res){

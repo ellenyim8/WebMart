@@ -1,14 +1,14 @@
 // const Item = require('../models/Items'); For future use, get list of auction items to display to user
 function getHome(request, response){
   if(request.session.logged_in){
-    console.log("Redirect to home, current user: "+request.session.username);
-    
+    console.log("Redirect to home, current user: "+request.session.username);    
     //Render Admin View
     if (request.session.type == 'Admin') {
       response.render('home', {
         title: 'WebMart', 
         username: request.session.username, 
         userObj: request.session.userObj,
+        friendItems: request.session.friendItems,
         isAdmin: true
       });
     }
@@ -19,6 +19,7 @@ function getHome(request, response){
         title: 'WebMart', 
         username: request.session.username, 
         userObj: request.session.userObj,
+        friendItems: request.session.friendItems,
         isAdmin: false
       });
     }

@@ -30,6 +30,19 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 })
 
+const uploadprofile = multer({
+  storage: multer.diskStorage({
+      destination(req, file, cb) {
+          cb(null, './public/images/profile/');
+      },
+      filename(req, file, cb) {
+          const ext = path.extname(file.originalname);
+          cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+      },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+})
+
 
 const mongo = require('./modules/MongoConnection.js').getInstance()
 
@@ -489,6 +502,7 @@ app.route('/viewProfile')
     next();                                               //Go to next function "middle ware(?) technique"
 }, friendProfileHandler.getFriendProfile);
 
+
 app.route('/changeprofile')
 .get(async function (req,res){
     const username = req.session.userObj.username;
@@ -497,13 +511,66 @@ app.route('/changeprofile')
     await User.updateOne({username: user.username}, {$set : {img: "Friend2.png"}})
 });
 
+app.route('/editimg')
+.post(uploadprofile.single('chooseFile'), async function(req,res){
+    var imgname;
+    if(!req.file) { imgname = req.session.img}
+    else{ imgname = req.file.filename}
+    
+    req.session.img = imgname;
+    await User.updateOne({username: req.session.username}, {$set : {img: imgname}})
+
+    res.redirect('/profile')
+})
+
 app.route('/editemail')
   .post(async function(req,res){
     const username = req.session.userObj.username;
     const user = await User.findOne({username}).lean();
     const email = req.body.email
     await User.updateOne({username: user.username}, {$set : {email: email}})
-    console.log(user.email)
+    req.session.email = email
+    console.log(req.session.email)
+    console.log(email)
+    res.redirect('/profile')
+});
+
+app.route('/editusername')
+  .post(async function(req,res){
+    const email = req.session.email;
+    const user = await User.findOne({email}).lean();
+    const curname = req.session.username;
+    const changename = req.body.username
+    await User.updateOne({email: user.email}, {$set : {username: changename}})
+    req.session.username = changename
+    //Username has changed, change the name of items seller
+    await Item.updateMany({seller: curname}, {$set: {seller : changename}})
+    console.log(curname)
+    console.log(changename)
+    const Items = await Item.find({$and :[{seller : req.session.username}, {purchased : false}]}).lean();
+    req.session.myItems = Items; 
+
+    res.redirect('/profile')
+});
+
+app.route('/editabout')
+  .post(async function(req,res){
+    const username = req.session.username;
+    const user = await User.findOne({username}).lean();
+    const about = req.body.about
+    await User.updateOne({username: user.username}, {$set : {about: about}})
+    req.session.about = about
+    res.redirect('/profile')
+});
+
+app.route('/editpassword')
+  .post(async function(req,res){
+    const username = req.session.username;
+    const user = await User.findOne({username}).lean();
+    const password = req.body.password
+    await User.updateOne({username: user.username}, {$set : {password: password}})
+    req.session.password = password
+
     res.redirect('/profile')
 });
 

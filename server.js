@@ -104,7 +104,7 @@ app.route('/login')
     const user = await User.findOne({ email }).lean() //searches through all known users for email
     const sellingItems = await Item.find({$and :[{seller : user.username}, {purchased : false}]}).lean();
     const soldItems = await Item.find({$and :[{seller : user.username}, {purchased : true}]}).lean();
-    const friendItems = await Item.find({$and: [{seller : user.friends}, {purchased : false}]}).lean();
+    const friendItems = await Item.find({$and: [{seller : {$ne : user.username}}, {purchased : false}]}).lean();
     const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
 
     //Latest on Top
@@ -243,13 +243,13 @@ app.route('/register')
     await Item.deleteOne({name : item_to_delete})
     res.redirect('/') // CHANGE THIS TO REFRESH PAGE
   })
-
+/*
   //List Items Page Route
   app.get('/itemListing', (req, res) => {
     console.log('Navigating to Items List Page')
     res.render('listItems')
   })
-
+*/
   //CreateItem Page Route
   app.route('/createItem')
     .post(upload.single('chooseFile'), function(req,res){
@@ -388,7 +388,7 @@ app.route('/buyItem')
       await User.updateOne({username: username}, {$addToSet: { 'purchaseHistory': req.body.item}}) //Update Item ID in to purchase History
       await Item.updateOne({_id : req.body.item}, {$set : {purchased : true}});     
       const user = await User.findOne({username}).lean();                                                               //Remove purchased Item from table
-      const friendItems = await Item.find({$and: [{seller : user.friends}, {purchased : false}]}).lean();                                     //Update Session 
+      const friendItems = await Item.find({$and: [{seller : {$ne : user.username}}, {purchased : false}]}).lean();                                     //Update Session 
       const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
       console.log(friendItems);
       //Latest on Top

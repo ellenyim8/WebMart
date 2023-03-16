@@ -115,21 +115,23 @@ app.route('/login')
   .post(async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ email }).lean() //searches through all known users for email
+
+    //Latest on Top
+
+    if (!user) {
+      return res.redirect('/login?error=1') //No user found error
+    }
+
     const sellingItems = await Item.find({$and :[{seller : user.username}, {purchased : false}]}).lean();
     const soldItems = await Item.find({$and :[{seller : user.username}, {purchased : true}]}).lean();
     const friendItems = await Item.find({$and: [{seller : {$ne : user.username}}, {purchased : false}]}).lean();
     const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
 
-    //Latest on Top
     friendItems.sort(function (a,b){
       if (a.creationDate < b.creationDate) {return 1;}
       if (a.creationDate > b.creationDate) {return -1;}
       return 0;
       });
-
-    if (!user) {
-      return res.redirect('/login?error=1') //No user found error
-    }
 
     if (password == user.password) {
       req.session.logged_in = true

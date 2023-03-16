@@ -14,14 +14,17 @@
             {{!-- right side--}}
             <ul class="navbar-nav ml-auto mr-5">
                 <div class="r-flex">
-                    <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                    <li class="nav-item ml-4">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/itemListing">View Items List <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/itemListing">My Items<span class="sr-only">(current)</span></a>
                     </li>
-                     <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/friends">Friends <span class="sr-only">(current)</span></a>
+                     <li class="nav-item ml-4">
+                        <a class="nav-link" href="/friends">Friends<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item ml-4">
+                        <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
                     </li>
                 </div>
             </ul>
@@ -55,27 +58,30 @@
  <a href="/itemListing">View Items List</a>
     &nbsp;--}}
 
-  {{!-- PLACEHOLDER LOGOUT --}}
-  {{!-- <a href="/logout">Logout</a> --}}
-  
-    {{!-- Small Space --}}
-
-    <div class="row">
-        <div class="container-fluid ">
-            <h3>User Status</h3>
-            <p>
-              User logged in?
-              <span style="color:rgb(245, 50, 50)">{{logged_in}}</span>
-              <br />
-              Current user is
-              <span style="color:rgb(245, 50, 50)">{{userObj.username}}</span>
-              {{#if isAdmin}}
-                and is an 
-                <span style="color:rgb(245, 50, 50)">Admin</span>
-              {{/if}}
-            </p>
+  {{!-- PLACEHOLDER LOGOUT 
+  <a href="/logout">Logout</a>
+    Small Space--}}
+    <br>
+    <br>   
+    <h3>Current Items</h3>
+        <div class="row">
+            {{#each friendItems}}            
+            <div class="col-md-4 debugBG">
+                    <img src="/images/item/{{this.image}}"  id="profile-img" width="130px"></img>
+                    <h4>{{this.name}}</h4>
+                    <h5>Price : ${{this.price}}</h5>
+                    <h5><P>Description of Item :</P></h5>
+                    <p>{{this.description}}</p>
+                    <p>Selling by : {{this.seller}}</p>
+                    <p>Uploaded on : {{this.creationDate}}</p>
+                    {{!--Here is fomring to buy items--}}
+                    <form action ='/buyItem' method="POST" id="request-form">               
+                        <input type = "hidden" value = {{this._id}} name ="item">
+                        <input type = "submit" value = "Buy This" name = "buy">
+                    </form>
+            </div>
+            {{/each}}
         </div>
-         </div>
 
         <br> 
         <br> 

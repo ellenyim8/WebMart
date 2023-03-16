@@ -14,10 +14,10 @@
             <ul class="navbar-nav ml-auto mr-5">
                 <div class="r-flex">
                     <li class="nav-item ml-4">
-                        <a class="nav-link" href="/"> Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/home"> Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/itemListing"> View Item List <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/itemListing"> My Item <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ml-4">
                         <a class="nav-link" href="/friends"> Friends <span class="sr-only">(current)</span></a>
@@ -32,17 +32,14 @@
     </div>    
     <div class="col-md-4">
         <h1><br><br>Add New Item<br></h1>
-        <form action="/register" method="POST" id="register-form">
-        <script>
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const error = urlParams.get('error');
-            window.addEventListener('load',function()
-            {     
-                var item_id = document.getElementById('incorrect_item_id');
-                item_id.style.visibility = "hidden";
-            })
-        </script>
+    <div class="container">
+            <form action="/createItem" method="POST" enctype="multipart/form-data">
+                <div class="button">
+                    <label for="chooseFile" >
+                        Choose Image
+                    </label>
+                </div>
+                <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">                         
             <div class="form-group">   
                 <label for="itemName"><br>Item Name</label>
                 <input class="form-control" type="name" name="itemName" placeholder="Enter title"/><br>
@@ -50,15 +47,47 @@
              </div>
             <div class="form-group">   
                 <label for="description">Description</label>
-                <input class="form-control" name="description" placeholder="Enter Description"/><br>
+                <input class="form-control" name="itemDescription" placeholder="Enter Description"/><br>
+                <p id="no_Description" name="no_Description"></p>
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="price" class="form-control" name="price" placeholder="Enter Price">
+                <input type="price" class="form-control" name="itemPrice" placeholder="Enter Price">
+                <p id="no_Price" name="no_Price"></p>
             </div>            
-            <button type="Create" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         </div>
+        </div>
+        <script>
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const error = urlParams.get('error');
+            window.addEventListener('load',function()
+            {     
+                var name_err = document.getElementById('no_ItemName');
+                var des_err = document.getElementById('no_Description');
+                var price_err = document.getElementById('no_Price');
+                name_err.style.visibility = "hidden";
+                des_err.style.visibility = "hidden";
+                price_err.style.visibility = "hidden";
+                if(error.includes("nName"))
+                {
+                    name_err.style.visibility = "visible";
+                    name_err.innerHTML = "<span style=color:red>Please Write Item Name</span>";
+                }
+                if(error.includes("nDes"))
+                {
+                    des_err.style.visibility = "visible";
+                    des_err.innerHTML = "<span style=color:red>Please Write Description</span>";
+                }
+                if(error.includes("nPrice"))
+                {
+                    price_err.style.visibility = "visible";
+                    price_err.innerHTML = "<span style=color:red>Please write Price</span>";
+                }
+            })
+        </script>
     </div>
     <div class="col-md-4">
     </div>

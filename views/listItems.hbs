@@ -29,9 +29,11 @@
         </div>
     </nav>
   
+  <br> <br> 
+
   <div class="content-wrapper"> 
     <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
+        <div class="col-md-6 d-flex align-items-center header">
                 <h1><h1>My Items List</h1></h1>
         </div>
     </div>
@@ -55,7 +57,12 @@
             </div>
         {{/each}}
 
-          <h1><h1>Sold Item List</h1></h1>
+            <div class="row">
+                <div class="col-md-6 d-flex align-items-center header">
+                    <h1><h1>Sold Item List</h1></h1>
+                </div>
+            </div>
+          
          {{#each soldItems}}            
             <div class="col-md-4 debugBG">
                     <img src="/images/item/{{this.image}}"  id="profile-img" width="130px"></img>

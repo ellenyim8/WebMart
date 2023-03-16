@@ -38,28 +38,37 @@
 
     <div class="col-md-4">
         <h1>Edit Profile</h1>
+        <form action="/editemail" method="POST" id="editemail-form">
             <div class="form-group">   
                 <label for="email">Email</label>
                 <input class="form-control" type="email" name="email" placeholder="Enter new email"/><br>
                 <p id="incorrect_email" name="incorrect_email"></p>
+                <button type="Confirm" class="btn btn-primary">Confirm Changes</button>
              </div>
+        <form>
+         <form action="/editusername" method="POST" id="editusername-form">
             <div class="form-group">   
                 <label for="username">Username</label>
                 <input class="form-control" name="username" placeholder="Enter new Username"/><br>
                 <p id="incorrect_username" name="incorrect_username"></p>
+                <button type="Confirm" class="btn btn-primary">Confirm Changes</button>
             </div>
+         <form>
+            <form action="/editabout" method="POST" id="editabout-form">
              <div class="form-group">   
                 <label for="about">About</label>
-                <input class="form-control" name="about" placeholder="Enter information about you"/><br>
+                <input class="form-control" name="about" placeholder="Enter information about yourself!"/><br>
+                 <button type="Confirm" class="btn btn-primary">Confirm Changes</button>
             </div>
+            <form>
+                <form action="/editpassword" method="POST" id="editpassword-form">
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Change Password">
-                <label for="confirmPassword"><br>Confirm password</label>
-                <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password">
+                <input type="password" class="form-control" name="password" placeholder="Enter New Password">
                 <p id="incorrect_password" name="incorrect_password"></p>
+                 <button type="Confirm" class="btn btn-primary">Confirm Changes</button>
+                </form>
             {{!-- <input class="login-text" type="submit" value = "login"/><br> --}}
-            <button type="Create" class="btn btn-primary">Confrim Changes</button>
             {{!--<div class="login new User href="/registration">create new account</a> </div>--}}
             </div>            
         </div>

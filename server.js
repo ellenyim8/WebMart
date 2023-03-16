@@ -13,7 +13,7 @@ const session = require('express-session')
 const path = require('path')
 
 // multer to I/O image
-const multer = require('multer');
+const multer = require('multer')
 //const upload = multer({dest:'./public/images/'})
 //multer Upload
 

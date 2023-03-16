@@ -16,13 +16,13 @@
             <ul class="navbar-nav ml-auto mr-5">
                 <div class="r-flex">
                     <li class="nav-item ml-4">
-                        <a class="nav-link" href="/">[placeholder link] <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/home"> Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ml-4">
-                        <a class="nav-link" href="/">Buy Items [placeholder button]</a>
+                        <a class="nav-link" href="/home">Buy Items </a>
                     </li>
                     <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/createItem">Add New Item</a>
+                        <a class="nav-link" href="/createItem">Sell Item</a>
                     </li>
                 </div>
             </ul>
@@ -30,44 +30,50 @@
     </nav>
   
   <div class="content-wrapper"> 
-
     <div class="row">
         <div class="col-md-6 d-flex align-items-center">
-                <h1><h1>Items List</h1></h1>
+                <h1><h1>My Items List</h1></h1>
         </div>
     </div>
-
     {{!-- Small Space --}}
     <br>
+    <br>
+        {{#each myItems}}            
+            <div class="col-md-4 debugBG">
+                    <img src="/images/item/{{this.image}}"  id="profile-img" width="130px"></img>
+                    <h4>{{this.name}}</h4>
+                    <h5>Price : ${{this.price}}</h5>
+                    <h5><P>Description of Item :</P></h5>
+                    <p>{{this.description}}</p>
+                    <p>Selling by : {{this.seller}}</p>
+                    <p>Uploaded on : {{this.creationDate}}</p>
+                    {{!--Here is fomring to delete items--}}
+                    <form action ='/deleteItem' method="POST" id="request-form">               
+                        <input type = "hidden" value = {{this._id}} name ="item">
+                        <input type = "submit" value = "cancel" name = "delete">
+                    </form>
+            </div>
+        {{/each}}
 
-    <div class="row">
-        <div class="col-md-4 debugBG">
-            <h3>User Status</h3>
-            <p>
-              User logged in?
-              <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
-              <br />
-              Current user is
-              <span style="color:rgb(255, 75, 75)">{{username}}</span>
-              {{#if isAdmin}}
-                and is an 
-                <span style="color:rgb(255, 75, 75)">Admin</span>
-              {{/if}}
-            </p>
+          <h1><h1>Sold Item List</h1></h1>
+         {{#each soldItems}}            
+            <div class="col-md-4 debugBG">
+                    <img src="/images/item/{{this.image}}"  id="profile-img" width="130px"></img>
+                    <h4>{{this.name}}</h4>
+                    <h5>Price : ${{this.price}}</h5>
+                    <h5><P>Description of Item :</P></h5>
+                    <p>{{this.description}}</p>
+                    <p>Selling by : {{this.seller}}</p>
+                    <p>Uploaded on : {{this.creationDate}}</p>
+                    {{!--Here is fomring to delete items
+                    <form action ='/deleteItem' method="POST" id="request-form">               
+                        <input type = "hidden" value = {{this._id}} name ="soldItem">
+                        <input type = "submit" value = "cancel" name = "soldDelete">
+                    </form>
+                    --}}
+            </div>
+        {{/each}}
         </div>
-        <div class="col-md-4 debugBG">
-
-            <h3>Overview Page Description</h2>
-            <p>Shows all items the user is selling currently. [See why I want to combine these?]</p>        
-      </div>
-        <div class="col-md-4 debugBG">
-            <h3>List Item Page Description</h2>
-            <p> Page that contains a list of all items being sold by the user. User can click “add new” to add a new item they are selling to the page.
-                Users can modify, remove all items they list. Buying items, takes users to a page/interface that pops up where they finalize details.
-                Has Setting to make purchase public. </p>
-            
-        </div>
-    </div>
-
-  </div>
+    </div>    
+     </div>
 </section>

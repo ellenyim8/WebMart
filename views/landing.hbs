@@ -25,10 +25,10 @@
       {{!-- All elements here appear on the right side of the navbar --}}
       <ul class="navbar-nav ml-auto mr-5 r-flex">
         <li class="nav-item ml-4">
-          <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+          <a class="nav-link" id="Login" href="/login">Login<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item ml-4 mr-4">
-          <a class="nav-link" href="/register">Register <span class="sr-only">(current)</span></a>
+          <a class="nav-link" id="Register" href="/register">Register<span class="sr-only">(current)</span></a>
         </li>
       </ul>
 
@@ -46,35 +46,41 @@
         <div class="col-md-6 d-flex align-items-center">
             <div class="">
                 <h1>WebMart</h1>
-
                 <p>WebMart is an online retail service where users can sell or buy items that are tailored towards each user's preferences. WebMart uniquely has an interactive social aspect, where users can stay up-to-date with their friend's purchases and share their own status.</p>
             </div>
-
         </div>
-
       </div>
-    </div>
+    </div>    
 
     {{!-- Space between row elements --}}
     <br>
   
-    <div class="row">
-
-      {{!-- TODO: insert text explaining what our app is, its functions, and user capabilities --}}
-      <div class="col-md-4 debugBG">
-        <h3>Seller</h3>
-        <p>[SELLER INFO]</p>
+    {{!-- Columns --}}
+      <div class="bg-danger text-white py-4">
+        <div class="container text-center">
+          <div class="row justify-content-around">
+            <div class="row">
+              <h2>Our Services</h2>
+            </div>
+          </div>
+        </div>
       </div>
+ 
+      <div class="bg-danger text-white py-4">
+          <div class="container">
+            <div class="row justify-content-around">
+              <div class="col-sm-4 services box hoverServices" style = "background: rgba(233, 174, 173, 0.451)">
+                <h3 class="text-center">Seller</h3>
+                <p>Anyone who wants to sell their items can create an account and start creating an engaging profile!</p>
+              </div>
 
-      <div class="col-md-4 debugBG">
-        <h3>Buyer</h3>
-        <p>[BUYER INFO]</p>
-      </div>
-       
-      <div class="col-md-4 debugBG">
-        <h3>BLANK</h3>
-        <p>BLANK</p>
+            <div class="col-sm-4 services box hoverServices" style = "background: rgba(233, 174, 173, 0.451)">
+                <h3 class="text-center">Buyer</h3>
+                <p>If you're looking to buy products, and share with your friends and family what you're currently up to, join us!</p>
+            </div>
+          </div>           
+        </div>
       </div>
     </div>
-  </div>
-</section>
+   </div>
+</section> 

@@ -29,3 +29,63 @@
             </ul>
         </div>
     </nav>
+
+<br> <br><br>
+
+<div class="row">
+    <div class="col-md-4">
+    </div>
+
+    <div class="col-md-4">
+        <h1>Edit Profile</h1>
+        <form action="/editimg" method="POST" enctype="multipart/form-data">
+                <div class="button">
+                    <label for="chooseFile" >
+                        Choose Image
+                    </label>
+                </div>
+        <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)"> 
+        <p></p>
+        <input type="submit" class="btn btn-primary" value = Confirm>
+        </form>  
+        <form action="/editemail" method="POST" id="editemail-form">
+            <div class="form-group">   
+                <label for="email">Email</label>
+                <input class="form-control" type="email" name="email" placeholder="Enter new email"/><br>
+                <p id="incorrect_email" name="incorrect_email"></p>
+                <button type="Confirm" class="btn btn-primary">Confirm Changes</button>
+             </div>
+        </form>
+         <form action="/editusername" method="POST" id="editusername-form">
+            <div class="form-group">   
+                <label for="username">Username</label>
+                <input class="form-control" name="username" placeholder="Enter new Username"/><br>
+                <p id="incorrect_username" name="incorrect_username"></p>
+                <button type="Confirm" class="btn btn-primary">Confirm Changes</button>
+            </div>
+        </form>  
+            <form action="/editabout" method="POST" id="editabout-form">
+             <div class="form-group">   
+                <label for="about">About</label>
+                <input class="form-control" name="about" placeholder="Enter information about yourself!"/><br>
+                 <button type="Confirm" class="btn btn-primary">Confirm Changes</button>
+            </div>
+         </form>
+            <form action="/editpassword" method="POST" id="editpassword-form">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Enter New Password">
+                <p id="incorrect_password" name="incorrect_password"></p>
+                 <button type="Confirm" class="btn btn-primary">Confirm Changes</button>
+            </form>
+            {{!-- <input class="login-text" type="submit" value = "login"/><br> --}}
+            {{!--<div class="login new User href="/registration">create new account</a> </div>--}}
+            </div>            
+        </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+
+</div>
+
+</section>

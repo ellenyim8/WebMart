@@ -489,6 +489,10 @@ app.route('/viewProfile')
     next();                                               //Go to next function "middle ware(?) technique"
 }, friendProfileHandler.getFriendProfile);
 
+<<<<<<< HEAD
+app.route('/editabout')
+  .post(async function(req,res) {
+=======
 app.route('/changeprofile')
 .get(async function (req,res){
     const username = req.session.userObj.username;
@@ -497,7 +501,11 @@ app.route('/changeprofile')
     await User.updateOne({username: user.username}, {$set : {img: "Friend2.png"}})
 });
 
+>>>>>>> main
 
+
+  })
+  
 // URL handlers
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);

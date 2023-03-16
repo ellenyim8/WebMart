@@ -497,7 +497,17 @@ app.route('/changeprofile')
     await User.updateOne({username: user.username}, {$set : {img: "Friend2.png"}})
 });
 
-  
+app.route('/editemail')
+  .post(async function(req,res){
+    const username = req.session.userObj.username;
+    const user = await User.findOne({username}).lean();
+    const email = req.body.email
+    await User.updateOne({username: user.username}, {$set : {email}})
+    console.log({email})
+    res.redirect('/profile')
+});
+
+ 
 // URL handlers
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);

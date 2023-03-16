@@ -324,7 +324,12 @@ app.route('/viewProfile')
     next();                                               //Go to next function "middle ware(?) technique"
 }, friendProfileHandler.getFriendProfile);
 
+app.route('/editabout')
+  .post(async function(req,res) {
 
+
+  })
+  
 // URL handlers
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);

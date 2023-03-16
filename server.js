@@ -502,8 +502,8 @@ app.route('/editemail')
     const username = req.session.userObj.username;
     const user = await User.findOne({username}).lean();
     const email = req.body.email
-    await User.updateOne({username: user.username}, {$set : {email}})
-    console.log({email})
+    await User.updateOne({username: user.username}, {$set : {email: email}})
+    console.log(user.email)
     res.redirect('/profile')
 });
 

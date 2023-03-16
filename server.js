@@ -13,7 +13,7 @@ const session = require('express-session')
 const path = require('path')
 
 // multer to I/O image
-const multer = require('multer');
+const multer = require('multer')
 //const upload = multer({dest:'./public/images/'})
 //multer Upload
 
@@ -68,7 +68,7 @@ const userObj = require('./modules/user.js')
 //import models for MongoDB
 const User = require('./models/User')
 const Item = require('./models/Items')
-const createItem = require('./models/CreateItem') //
+const createItem = require('./models/CreateItem') // 
 
 const app = express()
 const port = 8080
@@ -373,10 +373,10 @@ app.route('/confirmPurchase')
 
 
   // Overview Page Route
-  app.get('/overview', (req, res) => {
-    console.log('Navigating to Overview/ItemListing Page')
-    res.render('overview')
-  })
+  //app.get('/overview', (req, res) => {
+  //  console.log('Navigating to Overview/ItemListing Page')
+  //  res.render('overview')
+  //})
 
   //need to change the body though
   /*

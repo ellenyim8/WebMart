@@ -18,6 +18,9 @@
                     <li class="nav-item ml-4">
                         <a class="nav-link" href="/home"> Home <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item ml-4">
+                        <a class="nav-link" href="/home">Buy Items </a>
+                    </li>
                     <li class="nav-item ml-4 mr-4">
                         <a class="nav-link" href="/createItem">Sell Item</a>
                     </li>
@@ -27,13 +30,12 @@
     </nav>
   
   <br> <br> 
-
-  <div class="content-wrapper"> 
+  <div class="container"> 
     <div class="row">
-            <div class="col-md-6 d-flex align-items-center">
-                    <h1><h1>My Items List</h1></h1>
-          </div>
-    </div>
+        <div class="col-md-6 d-flex align-items-center">
+                <h1><h1>My Items List</h1></h1>
+        </div>
+    
     {{!-- Small Space --}}
     <br>
     <br>
@@ -51,14 +53,16 @@
                         <input type = "hidden" value = {{this._id}} name ="item">
                         <input type = "submit" value = "cancel" name = "delete">
                     </form>
+                    <br> 
             </div>
         {{/each}}
+    </div>
 
-            <div class="row">
-                <div class="col-md-6 d-flex align-items-center header">
-                    <h1><h1>Sold Item List</h1></h1>
-                </div>
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-center">
+                <h1><h1>Sold Item List</h1></h1>
             </div>
+        
           
          {{#each soldItems}}            
             <div class="col-md-4 debugBG">
@@ -75,9 +79,9 @@
                         <input type = "submit" value = "cancel" name = "soldDelete">
                     </form>
                     --}}
+                    <br> 
             </div>
         {{/each}}
         </div>
     </div>    
-     </div>
 </section>

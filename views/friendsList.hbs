@@ -29,10 +29,10 @@
    <div class="fullBg"> 
      <div>
          <div class="row">
-            <div class="col-md-8 friendBG" style="position:absolute; left:280px; top:450px; height:480px">
+            <div class="col-md-8 debugBG" style="position:absolute; left:200px; top:450px; height:375px">
                 {{!--List the current user's friend array. View Profile. Delete Friend --}}
             <br>
-            <h2 class="text-center">My Friends</h2>
+            <h2 class="text-center">Friend List</h2>
             {{#each userObj.friends}}
             <li>{{this}}
                 <form action ='/viewProfile' method="GET" id="get-form" style ="display: inline;">               
@@ -48,7 +48,7 @@
             {{/each}}
             </div>
         {{!--Get the list of Friend Requests. Accept,Decline possible --}}
-         <div class="col-md-4 debugBG" id = "menu1" style="position:absolute; left:1000px; top:250px; height:150px">
+         <div class="col-md-4 debugBG" id = "menu1" style="position:absolute; left:800px; top:250px; height:175px">
             <br>
             <h3 class="text-center">Friend Requests</h3>
             {{#each userObj.friend_requests}}
@@ -60,7 +60,7 @@
             {{/each}}
          </div>
         {{!--Search user and send the Request --}}
-         <div class="col-md-4 debugBG" style="position:absolute; left:220px; top:250px;">
+         <div class="col-md-4 debugBG" style="position:absolute; left:200px; top:250px;">
             <br>
             <h2 class="text-center">Add Friends</h2>
             <form action = '/friend_requests' method = "POST" id="request-form" style="display: inline;">

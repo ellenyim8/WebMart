@@ -190,6 +190,7 @@ app.get('/removeAllItems', async function(req, ress){
   const user = User.findOne(req.session.username).lean();
   //await User.updateOne({username: "Friend4"}, {$pull: {purchaseHistory: "641138e64680e90bb328eb3e"}})
   await Item.remove({})
+  await User.remove({})
 })
 
 

@@ -2,7 +2,7 @@ const User = require('../models/User');
 function getFriendsList(request, response){
   if(request.session.logged_in){
       response.render('friendsList', 
-      {title: 'Friends', 
+      {title: 'Friends List', 
       userObj: request.session.userObj,
     });
   }

@@ -63,6 +63,7 @@ const profileHandler = require('./handlers/profile.js')
 const friendsListHandler = require('./handlers/friendsList')
 const editProfileHandler = require('./handlers/editProfile.js')
 const friendProfileHandler = require('./handlers/friendProfile.js')
+const exploreHandler = require('./handlers/explore.js')
 
 const userObj = require('./modules/user.js')
 
@@ -126,7 +127,7 @@ app.route('/login')
     const sellingItems = await Item.find({$and :[{seller : user.username}, {purchased : false}]}).lean();
     const soldItems = await Item.find({$and :[{seller : user.username}, {purchased : true}]}).lean();
     const friendItems = await Item.find({$and: [{seller : {$ne : user.username}}, {purchased : false}]}).lean();
-    const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
+    const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).sort({_id:-1}).lean();
 
     friendItems.sort(function (a,b){
       if (a.creationDate < b.creationDate) {return 1;}
@@ -406,7 +407,7 @@ app.route('/buyItem')
       await Item.updateOne({_id : req.body.item}, {$set : {purchased : true}});     
       const user = await User.findOne({username}).lean();                                                               //Remove purchased Item from table
       const friendItems = await Item.find({$and: [{seller : {$ne : user.username}}, {purchased : false}]}).lean();                                     //Update Session 
-      const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
+      const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).sort({_id:-1}).lean();
       console.log(friendItems);
       //Latest on Top
       friendItems.sort(function (a,b){
@@ -590,6 +591,7 @@ app.get('/friends', friendsListHandler.getFriendsList);
 app.get('/editProfile', editProfileHandler.geteditProfile);
 app.get('/item/:item_id', itemHandler.getItem);
 app.get('/item/:item_id/purchase', purchaseHandler.getPurchase);
+app.get('/explore', exploreHandler.getExplore);
 
 //app.get('/viewProfile', friendProfileHandler.getFriendProfile,);
 

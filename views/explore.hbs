@@ -1,5 +1,20 @@
 <section>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
+
+    <script>
+    //Search Bar
+    //https://www.w3schools.com/howto/howto_js_filter_lists.asp
+    function search() {
+        search_input = document.getElementById('search_bar');
+        display= document.getElementById('item_display').children;
+        search_filter = search_input.value.toLowerCase();
+        for(i=0; i < display.length; i++){
+            item = display[i].id.toLowerCase();
+            item.indexOf(search_filter)!=-1?display[i].style.display="": display[i].style.display="none";
+        }
+    }
+    </script>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
   <a class="navbar-brand ml-5" href="/">
   <span class="black-text">WebMart</span>
   </a>
@@ -39,24 +54,24 @@
   </nav>
 
   <div class="content-wrapper"> 
-    <br> 
-  <br> 
-    <div class="row">
-        <div class="col">
-            <h1>My Items</h1>
-        </div>
-        <div class="col text-right"><a href="/createItem" class="btn btn-primary" role="button">Create New Listing</a></div>
-    </div>
-    <hr>
+    <br>
     <br>
 
-    <div class="row">
-        <h3>Items you're currently selling</h1>
+    <h1>Explore</h1>   
+    <hr><br>
+    <div class="row" id = "SearchBarDiv">
+        <div class="col">
+            <form onsubmit="event.preventDefault()">
+            <input class="form-control" type="search" id="search_bar" onkeyup="search()" placeholder="Search for items">
+            </form>
+        </div>
     </div>
-    <br>
-    <div class="row">
-        {{#each myItems}}  
-        <div class="col-md-3 border item-block py-3 px-4">
+        <br>
+
+    {{!-- <h3>Explore</h3> --}}
+    <div class="row" id = "item_display">
+        {{#each item_list}}            
+        <div class="col-md-3 border py-3 px-4" id="{{this.name}}">
             <div class = "text-center">
                 <img class="item-small-pic" src="/images/item/{{this.image}}"  id=""></img>
                 <h4>{{this.name}}</h4>
@@ -66,46 +81,24 @@
             <div class="row">
                 <div class="col">
                     <h5>Price: ${{this.price}}</h5>
-                    <p>Description: {{this.description}}</p>
+                    <p>Sold by: {{this.seller}}</p>
                 </div>
+                {{!-- <div class="col text-center">
+                    <a href="/item/{{this._id}}" class="btn btn-primary" role="button">See Item</a>
+                </div> --}}
             </div>
             <p class="small">Listed: {{this.creationDate}}</p>
-            <div class="row">
+                <div class="row">
                 <div class="col text-right">
                     <a href="/item/{{this._id}}" class="btn btn-primary btn-block" role="button">See Item</a>
                 </div>
                 <div class="col text-left">
-                    <form action ='/deleteItem' method="POST" id="request-form">               
-                    <input type = "hidden" value = {{this._id}} name ="item">
-                    <button type="submit" id = "cancel" value = "cancel" name = "delete" class="btn btn-secondary btn-block">Cancel Listing</button>   
-                    </form>
+                    <a href="/item/{{this._id}}/purchase" class="btn btn-primary btn-block" role="button">Buy Now</a>
                 </div>
             </div>
             
-        </div>          
+        </div>
         {{/each}}
-    </div>
-
-    <br>
-    <br>
-    <h3>Items you've Sold</h3>
-        <div class="row">
-            {{#each soldItems}}            
-                <div class="col-md-3 border item-block py-3 px-4">
-                <div class = "text-center">
-                <img class="item-small-pic" src="/images/item/{{this.image}}"  id=""></img>
-                <h4>{{this.name}}</h4>
-                <hr>
-                </div>
-
-                <div class="row">
-                <div class="col">
-                    <h5>Price: ${{this.price}}</h5>
-                    <p>Description: {{this.description}}</p>
-                </div>
-                </div>
-                <p class="small">Listed: {{this.creationDate}}</p>
-                </div>          
-            {{/each}}
-        </div>   
+    </div>  
+    
 </section>

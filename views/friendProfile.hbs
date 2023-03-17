@@ -1,65 +1,74 @@
 <section>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
-        <a class="navbar-brand ml-5" href="/logout">
-            <span class="black-text">Logout</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            {{!-- left side--}}
-            <ul class="navbar-nav">
-            </ul>
-            {{!-- right side--}}
-            <ul class="navbar-nav ml-auto mr-5">
-                <div class="r-flex">
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/itemListing"> View Item List <span class="sr-only">(current)</span></a>
-                    </li>
-                     <li class="nav-item ml-4">
-                        <a class="nav-link" href="/friends"> Friends <span class="sr-only">(current)</span></a>
-                    </li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
+  <a class="navbar-brand ml-5" href="/">
+  <span class="black-text">WebMart</span>
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>   
+  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse" id="navbarNav">
+  
+  {{!-- All elements here appear on the left side of the navbar --}}
+  <ul class="navbar-nav">
+  </ul>
+  
+  {{!-- All elements here appear on the right side of the navbar --}}
+  <ul class="navbar-nav ml-auto mr-5">
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/explore">Explore <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/itemListing">My Items<span class="sr-only">(current)</span></a>
+    </li>
+     <li class="nav-item ml-4">
+    <a class="nav-link" href="/friends">Friends<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4  mr-4">
+    <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
+    </li>
+  </ul>
+  </div>
+  </nav>
+
+<div class="content-wrapper"> 
+        <br><br>
+
+        <div class="row border p-5 ">
+            <div class="col">
+                <div class="text-center" >
+                    <img id = "profile" src="/images/profile/{{userObj.img}}">
                 </div>
-            </ul>
-        </div>
-    </nav>
-   <div class="content-wrapper"> 
-     <div class="col-md-6 p-5">
-        <div id="profile">
-            <img src="/images/profile/{{userObj.img}}"  id="profile-img"></img>
-        </div>
-        <input id="img-upload" type="file" 
-            name="profile photo" placeholder="Photo" required="" capture>
-          <div>
-            <h1>Account Name : {{userObj.username}}</h1>
-            <h1>Email : {{userObj.email}}</h1>
-        </div>
-        {{!-- <img src="{{img}}" alt="insert profile image" class="img-rounded">
-        <h4>{{username}}</h4> --}} 
-    
-    <br>
-
-        <div class="row">
-            <div class="col-md-4 debugBG" id="aboutInfo" style="display: block" onclick="editAvailable()">
-                <h2>About</h2>
-                <p>{{userObj.about}}
-
-                </p>
             </div>
-            {{!--
-        <div class="col-md-4 debugBG">
-            <h3>Items List</h2>
-            <p>Shows purchase history</p>--}}
+            <div class="col">
+                <div>
+                    <br>
+                    <h1>{{userObj.username}}</h1>
+                    <h1>{{userObj.email}}</h1>
+                </div>
+            </div>
         </div>
-        </div>
-     </div>
-    </div>
+    
+        <br>
 
-    </div>
-<div>
+        <div class="row border">
+            <div class="col">
+                <div class="" id="aboutInfo">
+                    <h2>About</h2>
+                    <p>{{userObj.about}}</p>
+                </div>
+            </div>
+        </div>
+
+</div>
+
 <section>
 
 

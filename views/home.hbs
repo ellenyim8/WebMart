@@ -1,84 +1,124 @@
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
-        <a class="nav-item ml-4 mr-4" href="/logout">
-            <span class="nav-link">Logout</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>   
-        <div class="collapse navbar-collapse" id="navbarNav">
-            {{!-- right side--}}
-            <ul class="navbar-nav ml-auto mr-5">
-                <div class="r-flex">
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/itemListing">My Items<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/friends">Friends<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/createItem">Sell Item</a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
-                    </li>
-                </div>
-            </ul>
-        </div>
-    </nav>
+  <a class="navbar-brand ml-5" href="/">
+  <span class="black-text">WebMart</span>
+  </a>
 
-  <br> 
-  <br> 
-
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h2 class="jumbotron-heading">Home Page</h2>
-        </div>
-    </section>
-  {{!--- <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-                <h1><h1>Home Page</h1></h1>
-        </div>
-    </div> --}}
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>   
+  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse" id="navbarNav">
+  
+  {{!-- All elements here appear on the left side of the navbar --}}
+  <ul class="navbar-nav">
+  </ul>
+  
+  {{!-- All elements here appear on the right side of the navbar --}}
+  <ul class="navbar-nav ml-auto mr-5">
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/explore">Explore <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/itemListing">My Items<span class="sr-only">(current)</span></a>
+    </li>
+     <li class="nav-item ml-4">
+    <a class="nav-link" href="/friends">Friends<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4  mr-4">
+    <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
+    </li>
+  </ul>
+  </div>
+  </nav>
 
   <div class="content-wrapper"> 
-
-  {{!--- PLACEHOLDER ITEMS ---}}
-  {{!--- <a href="/listItems">ITEMS LIST</a>  ? ---}} 
-
-  {{!-- PLACEHOLDER PROFILE PAGE 
-  <a href="/profile">View Profile </a>
-  &nbsp;--}}
-  
-  {{! -- PLACEHOLDER ITEMS LIST 
- <a href="/itemListing">View Items List</a>
-    &nbsp;--}}
-
-  {{!-- PLACEHOLDER LOGOUT 
-  <a href="/logout">Logout</a>
-    Small Space--}}
     <br>
-    <br>   
-    <h3>Current Items</h3>
-        <div class="row">
-            {{#each friendItems}}            
-            <div class="col-md-4 debugBG">
-                    <img src="/images/item/{{this.image}}"  id="profile-img" width="130px"></img>
-                    <h4>{{this.name}}</h4>
-                    <h5>Price : ${{this.price}}</h5>
-                    <h5><P>Description of Item :</P></h5>
-                    <p>{{this.description}}</p>
-                    <p>Selling by : {{this.seller}}</p>
-                    <p>Uploaded on : {{this.creationDate}}</p>
-                    {{!--Here is fomring to buy items--}}
-                    <form action ='/buyItem' method="POST" id="request-form">               
-                        <input type = "hidden" value = {{this._id}} name ="item">
-                        <input type = "submit" value = "Buy This" name = "buy">
-                    </form>
+    <br>
+
+    <h1>Dashboard</h1>   
+    <hr><br>
+
+    <h3>Your recent pick ups:</h3>   
+    <div class="row">
+        {{#each recent_purchases}}            
+        <div class="col-md-3 border item-block py-3 px-4">
+            <div class = "text-center">
+                <img class="item-small-pic" src="/images/item/{{this.image}}"  id=""></img>
+                <h4>{{this.name}}</h4>
+                <hr>
             </div>
-            {{/each}}
-        </div>  
+
+            <div class="row">
+                <div class="col">
+                    <h5>Price: ${{this.price}}</h5>
+                    <p>Sold by: {{this.seller}}</p>
+                </div>
+                <div class="col text-center">
+                    <a href="/item/{{this._id}}" class="btn btn-primary" role="button">See Item</a>
+                </div>
+            </div>
+            <p class="small">Listed: {{this.creationDate}}</p>
+            
+        </div>
+        {{/each}}
+    </div>  
+    <br>
+
+    <h3>Items your friends just bought:</h3>
+    <div class="row">
+        {{#each friendsItemsBought}}            
+        <div class="col-md-3 border item-block py-3 px-4">
+            <div class = "text-center">
+                <img class="item-small-pic" src="/images/item/{{this.image}}"  id=""></img>
+                <h4>{{this.name}}</h4>
+                <hr>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <h5>Price: ${{this.price}}</h5>
+                    <p>Sold by: {{this.seller}}</p>
+                </div>
+                <div class="col text-center">
+                    <a href="/item/{{this._id}}" class="btn btn-primary" role="button">See Item</a>
+                </div>
+            </div>
+            <p class="small">Listed: {{this.creationDate}}</p>
+            
+        </div>
+        {{/each}}
+    </div>  
+
+    <h3>Items your friends are selling:</h3>
+    <div class="row">
+        {{#each friendItems}}            
+        <div class="col-md-3 border item-block py-3 px-4">
+            <div class = "text-center">
+                <img class="item-small-pic" src="/images/item/{{this.image}}"  id=""></img>
+                <h4>{{this.name}}</h4>
+                <hr>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <h5>Price: ${{this.price}}</h5>
+                    <p>Sold by: {{this.seller}}</p>
+                </div>
+                <div class="col text-center">
+                    <a href="/item/{{this._id}}" class="btn btn-primary" role="button">See Item</a>
+                </div>
+            </div>
+            <p class="small">Listed: {{this.creationDate}}</p>
+            
+        </div>
+        {{/each}}
+    </div>  
+    
 </section>

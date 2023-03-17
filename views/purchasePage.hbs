@@ -41,166 +41,166 @@
     <br>
     <br>
     <br>
-    <form>
-    {{!-- SHIPPING --}}
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
-            <div class="text-center">
-                <h4>Shipping</h1>
+    <form action ='/buyItem' method="POST" id="request-form">
+        {{!-- SHIPPING --}}
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <div class="text-center">
+                    <h4>Shipping</h1>
 
-            </div>
-        </div>
-        <div class="col-md-6 ">
-
-                {{!-- Name --}}
-                <div class="row">
-                    <div class="form-group col">
-                        <label for="fName">First Name</label>
-                        <input type="text" class="form-control" id="fName" placeholder="First name">
-                    </div>
-                    <div class="form-group col">
-                        <label for="lName">Last Name</label>
-                        <input type="text" class="form-control" id="lName" placeholder="Last name">
-                    </div>
-                </div>
-                {{!-- Country --}}
-
-                {{!-- Street Address --}}
-                <div class="form-group">
-                    <label for="addr">Address</label>
-                    <input type="text" class="form-control" id="addr" placeholder="1000 Example St">
-                </div>
-                {{!-- City, State,  Zip--}}
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="city">City</label>
-                        <input type="text" class="form-control" id="city">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="state">State</label>
-                        <select id="state" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="zip">Zip</label>
-                        <input type="text" class="form-control" id="zip">
-                    </div>
-                </div>
-
-        </div>
-        <div class="col-md-2 "></div>
-    </div>
-
-    <hr>
-
-    {{!-- PAYMENT --}}
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
-            <div class="text-center">
-                <h4>Payment</h1>
-
-            </div>
-        </div>
-        <div class="col-md-6 ">
-
-            {{!-- PAYAPL --}}
-            <div id="smart-button-container">
-                <div style="text-align: center;">
-                    <div id="paypal-button-container"></div>
                 </div>
             </div>
-            <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
-            <script>
-                // SET PRICE 
-                price ={{item_to_display.price}} 
+            <div class="col-md-6 ">
 
-                function initPayPalButton() {
-                    paypal.Buttons({
-                    style: {
-                    shape: 'rect',
-                    color: 'gold',
-                    layout: 'vertical',
-                    label: 'paypal',
-                },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                    purchase_units: [{"description":"Test description","amount":{"currency_code":"USD","value":price}}]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(orderData) {
+                    {{!-- Name --}}
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="fName">First Name</label>
+                            <input type="text" class="form-control" id="fName" placeholder="First name">
+                        </div>
+                        <div class="form-group col">
+                            <label for="lName">Last Name</label>
+                            <input type="text" class="form-control" id="lName" placeholder="Last name">
+                        </div>
+                    </div>
+                    {{!-- Country --}}
 
-                    // Full available details
-                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    {{!-- Street Address --}}
+                    <div class="form-group">
+                        <label for="addr">Address</label>
+                        <input type="text" class="form-control" id="addr" placeholder="1000 Example St">
+                    </div>
+                    {{!-- City, State,  Zip--}}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="state">State</label>
+                            <select id="state" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="zip">Zip</label>
+                            <input type="text" class="form-control" id="zip">
+                        </div>
+                    </div>
 
-                    // Show a success message within this page, e.g.
-                    const element = document.getElementById('paypal-button-container');
-                    element.innerHTML = '';
-                    element.innerHTML = '<h3>Thank you for your payment!</h3>';
+            </div>
+            <div class="col-md-2 "></div>
+        </div>
 
-                    // Or go to another URL:  actions.redirect('thank_you.html');
+        <hr>
 
-                    });
-                },
-                onError: function(err) {
-                    console.log(err);
+        {{!-- PAYMENT --}}
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <div class="text-center">
+                    <h4>Payment</h1>
+
+                </div>
+            </div>
+            <div class="col-md-6 ">
+
+                {{!-- PAYAPL --}}
+                <div id="smart-button-container">
+                    <div style="text-align: center;">
+                        <div id="paypal-button-container"></div>
+                    </div>
+                </div>
+                <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+                <script>
+                    // SET PRICE 
+                    price ={{item_to_display.price}} 
+
+                    function initPayPalButton() {
+                        paypal.Buttons({
+                        style: {
+                        shape: 'rect',
+                        color: 'gold',
+                        layout: 'vertical',
+                        label: 'paypal',
+                    },
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                        purchase_units: [{"description":"Test description","amount":{"currency_code":"USD","value":price}}]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(orderData) {
+
+                        // Full available details
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                        // Show a success message within this page, e.g.
+                        const element = document.getElementById('paypal-button-container');
+                        element.innerHTML = '';
+                        element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+                        // Or go to another URL:  actions.redirect('thank_you.html');
+
+                        });
+                    },
+                    onError: function(err) {
+                        console.log(err);
+                        }
+                        }).render('#paypal-button-container');
                     }
-                    }).render('#paypal-button-container');
-                }
-                initPayPalButton();
-            </script>
-            {{!--  --}}
+                    initPayPalButton();
+                </script>
+                {{!--  --}}
+            </div>
+            <div class="col-md-2 "></div>
         </div>
-        <div class="col-md-2 "></div>
-    </div>
 
-    <hr>
+        <hr>
 
-    {{!-- REVIEW --}}
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
-            <div class="text-center">
-                <h4>REVIEW</h1>
+        {{!-- REVIEW --}}
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <div class="text-center">
+                    <h4>REVIEW</h1>
+
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                    <div class="row">
+                        {{!-- Item Picture --}}
+                        <div class="col text-center">
+                            <img class="" src="/images/item/{{item_to_display.image}}"  id="profile-img" width="200px"></img>
+                        </div>
+                        {{!-- Item Name --}}
+                        <div class="col text-left">
+                            <h5>Item: {{item_to_display.description}}</h5>
+                            <h5>Order Total: ${{item_to_display.price}}</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col text-center">
+                            {{!-- FINAL PURCHASE BUTTON --}}
+                            <input type = "hidden" value = {{item_to_display._id}} name ="item">
+                            <button type="submit" id = "submit" value = "Buy This" name = "buy" class="btn-lg btn-block btn btn-primary ">Place Order</button>   
+                        </div>
+                        <div class="col text-center">
+                            {{!-- CANCEL --}}
+                            <a href="/item/{{item_to_display._id}}" class="btn-lg btn-block btn btn-primary " role="button">Cancel Order</a>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
 
             </div>
+            <div class="col-md-2 "></div>
         </div>
-        <div class="col-md-6 ">
-                <div class="row">
-                    {{!-- Item Picture --}}
-                    <div class="col text-center">
-                         <img class="" src="/images/item/{{item_to_display.image}}"  id="profile-img" width="200px"></img>
-                    </div>
-                    {{!-- Item Name --}}
-                    <div class="col text-left">
-                        <h5>Item: {{item_to_display.description}}</h5>
-                        <h5>Order Total: ${{item_to_display.price}}</h5>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col text-center">
-                        {{!-- FINAL PURCHASE BUTTON --}}
-                        <button type="submit" id = "submit" value = "buy" class="btn-lg btn-block btn btn-primary ">Place Order</button>   
-                    </div>
-                    <div class="col text-center">
-                        {{!-- CANCEL --}}
-                        <a href="/item/{{item_to_display._id}}" class="btn-lg btn-block btn btn-primary " role="button">Cancel Order</a>
-                    </div>
-                    <div class="col-md-3"></div>
-                </div>
-
-        </div>
-        <div class="col-md-2 "></div>
-    </div>
     </form> 
-
-    <hr>
 
   </div>
 </section>

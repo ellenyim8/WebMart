@@ -49,7 +49,7 @@
                     {{!--Here is fomring to delete items--}}
                     <form action ='/deleteItem' method="POST" id="request-form">               
                         <input type = "hidden" value = {{this._id}} name ="item">
-                        <input type = "submit" value = "cancel" name = "delete">
+                        <input type = "submit" id = "cancel" value = "cancel" name = "delete">
                     </form>
             </div>
         {{/each}}

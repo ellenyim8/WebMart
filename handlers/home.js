@@ -1,4 +1,5 @@
 const { off } = require("process");
+const { addConsoleHandler } = require("selenium-webdriver/lib/logging");
 const Items = require("../models/Items");
 const User = require('../models/User')
 
@@ -30,17 +31,19 @@ async function getHome(request, response){
       // get list of each friend's recently bought items
       // get list of each friend's selling items
       const friends = cur_user.friends
+      console.log(friends)
       friends_item_list = []
       friends_bought_items = [] 
       for (f of friends){
         f_user = await User.findOne({username: f}).lean()
+        if (!f_user){
+          continue
+        }
         f_item = await Items.find({$and: [{seller: f_user.username},  {purchased : false}]}).lean()
         friends_item_list.push(...f_item)
         f_purchases = await Items.find({$and: [{_id : f_user.purchaseHistory}, {purchased : true}]}).lean();
         friends_bought_items.push(...f_purchases)
       }
-      console.log(friends_bought_items)
-      console.log(friends_bought_items[0].name)
 
       response.render('home', {
         title: 'WebMart', 

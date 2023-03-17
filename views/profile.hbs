@@ -59,24 +59,19 @@
     <br>
     
     <div class="row">
-        <div class="col-md-4 debugBG" id="aboutInfo" style="display: block" onclick="editAvailable()">
-            <h2>About</h2>
-            <p>{{about}}
-
-        <div class="row">
-            <div class="col-md-4 friendBG" id="aboutInfo" style="display: block; position:absolute; left:700px; top:50px; height:200px" onclick="editAvailable()">
+        <div class="column">
+            <div class="col-md-6 friendBG" id="aboutInfo" style="display: block; position:absolute; left:800px; top:50px; height:250px" onclick="editAvailable()">
                 <br>
                 <h2>About</h2>
                 <p>{{about}}
-
                 </p>
-                <button onclick="editAvailable()">Edit Profile</button>
+                <button onclick="editAvailable()"><a href="/editProfile">Edit Profile</a></button>
             </div>
             <!--Editing Section Will be hided-->
             <div class="col-md-4 friendBG" style ="display: none;"  id="aboutEdit">
                 <h2 style = "display: none;">About</h2>
                 <input class="input-text" type = "text" style = "width:220px;height:100px;font-size:30px;">
-                <button onclick=" editDisable()" id="aboutEdit">Conforim Profile</button>
+                <button onclick=" editDisable()" id="aboutEdit">Confirm Profile</button>
             </div>
         
             <h3>Items List</h2>

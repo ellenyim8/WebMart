@@ -1,35 +1,37 @@
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
-        <a class="navbar-brand ml-5" href="/logout">
-            <span class="black-text">Logout</span>
+        <a class="nav-item ml-4 mr-4" href="/logout">
+            <span class="nav-link">Logout</span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button>   
         <div class="collapse navbar-collapse" id="navbarNav">
-            {{!-- left side--}}
-            <ul class="navbar-nav">
-            </ul>
             {{!-- right side--}}
             <ul class="navbar-nav ml-auto mr-5">
                 <div class="r-flex">
                     <li class="nav-item ml-4">
                         <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item ml-4 mr-4">
-                        <a class="nav-link" href="/itemListing"> View Item List <span class="sr-only">(current)</span></a>
+                    <li class="nav-item ml-4">
+                        <a class="nav-link" href="/itemListing">My Items<span class="sr-only">(current)</span></a>
                     </li>
-                     <li class="nav-item ml-4">
-                        <a class="nav-link" href="/friends"> Friends <span class="sr-only">(current)</span></a>
+                    <li class="nav-item ml-4">
+                        <a class="nav-link" href="/friends">Friends<span class="sr-only">(current)</span></a>
                     </li>
-                     <li class="nav-item ml-4">
+                    <li class="nav-item ml-4">
+                        <a class="nav-link" href="/createItem">Sell Item</a>
+                    </li>
+                    <li class="nav-item ml-4">
+                        <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item ml-4">
                         <a class="nav-link" href="/editProfile"> Edit Profile <span class="sr-only">(current)</span></a>
                     </li>
                 </div>
             </ul>
         </div>
     </nav>
-
 <br> <br><br>
 
 <div class="row">

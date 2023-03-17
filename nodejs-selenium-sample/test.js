@@ -14,6 +14,25 @@ function enterAccountCredentials(driver) {
     });
 }
 
+// Function that enters the Item Name, Description, Price then clicks Submit
+function addItem(driver) {
+    setTimeout(function(){
+        driver.findElement(webdriver.By.id('no_ItemName')).sendKeys('testItem').then(function() {
+            setTimeout(function(){
+                driver.findElement(webdriver.By.id('no_Description')).sendKeys('A temporary item created to test functionality').then(function() {
+                    setTimeout(function(){
+                        driver.findElement(webdriver.By.id('no_Price')).sendKeys('3.00').then(function() {
+                            setTimeout(function(){
+                                driver.findElement(webdriver.By.id('submit')).click();
+                            }, 2000);
+                        });
+                    }, 2000);
+                });
+            }, 2000);
+        }); 
+    }, 2000);
+}
+
 function searchTextOnGoogle() {
 
     // Open Browser
@@ -32,6 +51,14 @@ function searchTextOnGoogle() {
         }, 10000);
 
 
+         // planned test: on the sell item page, enter an item called sellTest with desc: An item created by Jest. Price: 3.00. 
+        // Then it clicks submit and cancels the item
+
+        setTimeout(function(){
+            driver.get('http://localhost:8080/createItem').then(addItem(driver));
+        }, 12000);
+
+
         // After done testing, log the title page and exit
         driver.getTitle().then(function(title) 
         {
@@ -39,7 +66,7 @@ function searchTextOnGoogle() {
             {
                 console.log(title);
                 driver.quit();
-            }, 15000);
+            }, 250000);
         });
         
     });

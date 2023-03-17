@@ -1,4 +1,4 @@
-const webdriver = require('selenium-webdriver');
+const webdriver = require('selenium-webdriver'), By = webdriver.By, until = webdriver.until;
 
 
 // Function that enters the username, passoword, then clicks Submit
@@ -12,6 +12,26 @@ function enterAccountCredentials(driver) {
             });
         }, 2000);
     });
+}
+
+// Function that enters the Item Name, Description, Price then clicks Submit
+function addItem(driver) {
+    setTimeout(function(){
+        //findItemName(driver).then(function() {
+        driver.findElement(webdriver.By.id('ItemName')).sendKeys('testItem').then(function() {
+            setTimeout(function(){
+                driver.findElement(webdriver.By.id('Description')).sendKeys('A temporary item created to test functionality').then(function() {
+                    setTimeout(function(){
+                        driver.findElement(webdriver.By.id('Price')).sendKeys('3.00').then(function() {
+                            setTimeout(function(){
+                                driver.findElement(webdriver.By.id('submit')).click();
+                            }, 2000);
+                        });
+                    }, 2000);
+                });
+            }, 2000);
+        }); 
+    }, 2000);
 }
 
 function searchTextOnGoogle() {
@@ -32,6 +52,14 @@ function searchTextOnGoogle() {
         }, 10000);
 
 
+        // test: on the sell item page, enter an item called sellTest with desc: An item created by Jest. Price: 3.00. 
+        // Then it clicks submit and cancels the item
+
+        setTimeout(function(){
+            driver.get('http://localhost:8080/createItem').then(addItem(driver));
+        }, 12000);
+
+
         // After done testing, log the title page and exit
         driver.getTitle().then(function(title) 
         {
@@ -39,7 +67,7 @@ function searchTextOnGoogle() {
             {
                 console.log(title);
                 driver.quit();
-            }, 15000);
+            }, 250000);
         });
         
     });

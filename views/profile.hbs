@@ -38,12 +38,11 @@
    <div class="content-wrapper"> 
      <div class="col-md-6 p-5">
         <div id="profile">
-            <img src="/images/profile/{{userObj.img}}"  id="profile-img"></img>
+            <img src="/images/profile/{{img}}"  id="profile-img"></img>
         </div>
-        
           <div>
-            <h1>Account Name : {{userObj.username}}</h1>
-            <h1>Email : {{userObj.email}}</h1>
+            <h1>Account Name : {{username}}</h1>
+            <h1>Email : {{email}}</h1>
         </div>
         <br>
         <input id="img-upload" type="file" 
@@ -59,28 +58,20 @@
     
     <br>
     
-        {{!-- <div class="row mb-4">
-            <div class="col-md-12" id="aboutInfo" style="display: block; position:absolute; left:700px; top:50px; height:200px" onclick="editAvailable()">
-                <br> ---}}
-            <div class="row mb-4">
-            <div class="col-md-12" id="aboutInfo" style="display block; position:absolute; left:700px; top:50px; height:200px" onclick="editAvailable()">
-            <div class="card">
-                <div class="card-user-profile">
-                    <div class="profile-page-left debugBG">
-                            <center><h2>About</h2> 
-                            <br> 
-                                <p>{{about}}
-                                </p>
-                            </center> 
-                                <button onclick="editAvailable()"> <a href="/editProfile">Edit Profile</a></button>
-                             
-                    </div>
-                </div>
-            </div>
-            </div>
-            </div>
+    <div class="row">
+        <div class="col-md-4 debugBG" id="aboutInfo" style="display: block" onclick="editAvailable()">
+            <h2>About</h2>
+            <p>{{about}}
 
-            
+        <div class="row">
+            <div class="col-md-4 friendBG" id="aboutInfo" style="display: block; position:absolute; left:700px; top:50px; height:200px" onclick="editAvailable()">
+                <br>
+                <h2>About</h2>
+                <p>{{about}}
+
+                </p>
+                <button onclick="editAvailable()">Edit Profile</button>
+            </div>
             <!--Editing Section Will be hided-->
             <div class="col-md-4 friendBG" style ="display: none;"  id="aboutEdit">
                 <h2 style = "display: none;">About</h2>
@@ -107,7 +98,9 @@
         {{/each}} 
         
         </div>
+     </div>
     </div>
 
+    </div>
 <div>
 <section>

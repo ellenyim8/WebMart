@@ -1,86 +1,106 @@
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
-        <a class="nav-item ml-4 mr-4" href="/logout">
-            <span class="nav-link">Logout</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>   
-        <div class="collapse navbar-collapse" id="navbarNav">
-            {{!-- right side--}}
-            <ul class="navbar-nav ml-auto mr-5">
-                <div class="r-flex">
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/itemListing">My Items<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/friends">Friends<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/createItem">Sell Item</a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
-                    </li>
+  <a class="navbar-brand ml-5" href="/">
+  <span class="black-text">WebMart</span>
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>   
+  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse" id="navbarNav">
+  
+  {{!-- All elements here appear on the left side of the navbar --}}
+  <ul class="navbar-nav">
+  </ul>
+  
+  {{!-- All elements here appear on the right side of the navbar --}}
+  <ul class="navbar-nav ml-auto mr-5">
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/explore">Explore <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/itemListing">My Items<span class="sr-only">(current)</span></a>
+    </li>
+     <li class="nav-item ml-4">
+    <a class="nav-link" href="/friends">Friends<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4  mr-4">
+    <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
+    </li>
+  </ul>
+  </div>
+  </nav>
+
+<div class="content-wrapper"> 
+    <br><br>
+    <h1>Friends List</h1>
+    <hr><br>
+    <div class="row">
+
+            {{!--List the current user's friend array. View Profile. Delete Friend --}}
+            {{#each userObj.friends}}
+                <div class="col-md-3 border py-3 px-4">
+                    <div class = "text-center">
+                        <h4>{{this}}</h4>
+                        <hr>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <form action ='/viewProfile' method="GET" id="get-form" style ="display: inline;">               
+                            <input type = "hidden" value = {{this}} name ="friendprofile">
+                            <button type = "submit" value ="View Profile" name = "view" class="btn-lg btn-block btn border">View Profile</button>   
+                            </form>
+                        </div>
+                        <div class="col text-center">
+                            <form action ='/delete_friend' method="POST" id="request-form" style ="display: inline;">               
+                            <input type = "hidden" value = {{this}} name ="friendlist">
+                            <button type = "submit" value ="Delete" name = "delete" class="btn-lg btn-block btn border ">Remove</button>   
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </ul>
-        </div>
-    </nav>
+            {{/each}}
+
+    </div>
 
     <br>
-
-   <div class="fullBg"> 
-     <div>
-         <div class="row">
-            <div class="col-md-8 debugBG" style="position:absolute; left:200px; top:450px; height:375px">
-                {{!--List the current user's friend array. View Profile. Delete Friend --}}
-            <br>
-            <h2 class="text-center">Friend List</h2>
-            {{#each userObj.friends}}
-            <li>{{this}}
-                <form action ='/viewProfile' method="GET" id="get-form" style ="display: inline;">               
-                    <input type = "hidden" value = {{this}} name ="friendprofile">
-                    <input type = "submit" value ="View Profile" name = "view" 
-                    style="background: transparent; border : none">
-                </form>
-                <form action ='/delete_friend' method="POST" id="request-form" style ="display: inline;">               
-                    <input type = "hidden" value = {{this}} name ="friendlist">
-                <input type = "submit" value ="Delete" name = "delete">
-                </form>
-            </li>
-            {{/each}}
-            </div>
-        {{!--Get the list of Friend Requests. Accept,Decline possible --}}
-         <div class="col-md-4 debugBG" id = "menu1" style="position:absolute; left:800px; top:250px; height:175px">
-            <br>
+    <hr>
+    <br>
+    <div class="row">
+        <div class="col-md-6 border py-3 px-4" id = "menu1" >
             <h3 class="text-center">Friend Requests</h3>
+            <hr>
             {{#each userObj.friend_requests}}
             <form action ='/accept_friend' method="POST" id="request-form">               
-                    <input type = "hidden" value = {{this}} name ="friendlist">
-                <li>{{this}}<input type = "submit" value ="Accept" name = "accept">
+                <input type = "hidden" value = {{this}} name ="friendlist">
+                <h5>{{this}}</h5>
+                <input type = "submit" value ="Accept" name = "accept">
                 <input type = "submit" value ="Decline" name = "decline"></li>
             </form>
-            {{/each}}
-         </div>
-        {{!--Search user and send the Request --}}
-         <div class="col-md-4 debugBG" style="position:absolute; left:200px; top:250px;">
             <br>
+            {{/each}}
+        </div>
+        {{!--Search user and send the Request --}}
+        <div class="col-md-6 border py-3 px-4" >
             <h2 class="text-center">Add Friends</h2>
+            <hr>
             <form action = '/friend_requests' method = "POST" id="request-form" style="display: inline;">
-            <div class="form-group">
-                <input type="addUsername" class="form-control" name="addUsername" placeholder="Enter Username"/>
-                <br>
-                <input type="submit" id="OK" value="Request" style="display:inline">
-            </div>
+                <div class="form-group">
+                    <input type="addUsername" class="form-control" name="addUsername" placeholder="Enter Username"/>
+                    <br>
+                    <input type="submit" id="OK" value="Request" style="display:inline">
+                </div>
             </form>
-            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-    </div>
-
 <section>
 
 

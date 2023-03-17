@@ -173,17 +173,19 @@
                     <div class="row">
                         {{!-- Item Picture --}}
                         <div class="col text-center">
-                            <img class="" src="/images/item/{{item_to_display.image}}"  id="profile-img" width="200px"></img>
+                            <img class="" src="/images/item/{{item_to_display.image}}"  id="profile-img" height="200px"></img>
                         </div>
                         {{!-- Item Name --}}
                         <div class="col text-left">
-                            <h5>Item: {{item_to_display.description}}</h5>
+                            <h5>Item: {{item_to_display.name}}</h5>
+                            <h5>Description: {{item_to_display.description}}</h5>
                             <h5>Order Total: ${{item_to_display.price}}</h5>
                         </div>
                     </div>
-
+                    <br>
+                    <hr>
                     <div class="row">
-                        <div class="col-md-3"></div>
+                        {{!-- <div class="col-md-1"></div> --}}
                         <div class="col text-center">
                             {{!-- FINAL PURCHASE BUTTON --}}
                             <input type = "hidden" value = {{item_to_display._id}} name ="item">
@@ -193,7 +195,7 @@
                             {{!-- CANCEL --}}
                             <a href="/item/{{item_to_display._id}}" class="btn-lg btn-block btn btn-primary " role="button">Cancel Order</a>
                         </div>
-                        <div class="col-md-3"></div>
+                        {{!-- <div class="col-md-1"></div> --}}
                     </div>
 
             </div>

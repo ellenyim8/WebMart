@@ -54,10 +54,15 @@
                 <hr>
                 <h5 class= "price-first">Price: </h5>
                 <h5 class="price-second">${{item_to_display.price}}</h5>
-                
+                {{#if item_to_display.purchased}}
+                <br>
+                <p>Item not available</p>
+                {{else}}
+                <br>
                 <form action ='/item/{{item_to_display._id}}/purchase' method="GET" id="request-form" class="">               
                     <button type="submit" id = "submit" class="btn-lg btn btn-primary ">Purchase</button> 
                 </form>
+                {{/if}}
             </div>
 
         </div>

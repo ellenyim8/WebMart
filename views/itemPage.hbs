@@ -1,0 +1,82 @@
+{{! PLACEHOLDER }}
+<link rel="stylesheet" href="style.css" />
+<section>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow "> 
+  <a class="navbar-brand ml-5" href="/">
+  <span class="black-text">WebMart</span>
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>   
+  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse" id="navbarNav">
+  
+  {{!-- All elements here appear on the left side of the navbar --}}
+  <ul class="navbar-nav">
+  </ul>
+  
+  {{!-- All elements here appear on the right side of the navbar --}}
+  <ul class="navbar-nav ml-auto mr-5">
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/itemListing">My Items<span class="sr-only">(current)</span></a>
+    </li>
+     <li class="nav-item ml-4">
+    <a class="nav-link" href="/friends">Friends<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4">
+    <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item ml-4  mr-4">
+    <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
+    </li>
+  </ul>
+  </div>
+  </nav>
+
+  <div class="content-wrapper">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5 p-5">
+            <img class="float-right" src="/images/item/{{item_to_display.image}}"  id="profile-img" width="500px"></img>
+        </div>
+        <div class="col-md-5 d-flex align-items-center">
+
+            <div class="">
+                <h1 class="display-2">{{item_to_display.name}}</h1>
+                <h5 class="small">Seller: {{item_to_display.seller}}</h5>
+                <hr>
+                <h5 class= "price-first">Price: </h5>
+                <h5 class="price-second">${{item_to_display.price}}</h5>
+                
+                <form action ='/item/{{item_to_display._id}}/purchase' method="GET" id="request-form" class="">               
+                    <button type="submit" id = "submit" class="btn-lg btn btn-primary ">Purchase</button> 
+                </form>
+            </div>
+
+        </div>
+        <div class="col-md-1 "></div>
+    </div>  
+
+    <hr>
+    <div class="row">
+        <div class="col-md-2 d-flex align-items-center"></div>
+        <div class="col-md-8 d-flex align-items-center">
+            <div class="">
+                <h4>About this item:</h4>
+                <p>{{item_to_display.description}}</p>
+                <br>
+                <p>Uploaded on: {{item_to_display.creationDate}}</p>
+            </div>
+        </div>
+        <div class="col-md-2 d-flex align-items-center"></div>
+    </div>
+
+  </div>
+</section>

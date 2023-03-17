@@ -43,7 +43,6 @@ const uploadprofile = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 })
 
-
 const mongo = require('./modules/MongoConnection.js').getInstance()
 
 //import folders
@@ -55,6 +54,8 @@ const landingHandler = require('./handlers/landing.js')
 const homeHandler = require('./handlers/home.js')
 const loginHandler = require('./handlers/login.js')
 const listItemsHandler = require('./handlers/listItems.js')
+const itemHandler = require('./handlers/item.js') // for displaying item page
+const purchaseHandler = require('./handlers/purchase.js') // for displaying purchase page
 const registerHandler = require('./handlers/register.js') 
 const createItemHandler = require('./handlers/createItems.js') 
 //const createItemHandler = require('./handlers/createItem.js')
@@ -577,7 +578,6 @@ app.route('/editpassword')
     res.redirect('/profile')
 });
 
- 
 // URL handlers
 app.get('/', landingHandler.getLanding);
 app.get('/home', homeHandler.getHome);
@@ -588,6 +588,8 @@ app.get('/createItem', createItemHandler.getCreateItem);
 app.get('/profile', profileHandler.getProfile);
 app.get('/friends', friendsListHandler.getFriendsList);
 app.get('/editProfile', editProfileHandler.geteditProfile);
+app.get('/item/:item_id', itemHandler.getItem);
+app.get('/item/:item_id/purchase', purchaseHandler.getPurchase);
 
 //app.get('/viewProfile', friendProfileHandler.getFriendProfile,);
 

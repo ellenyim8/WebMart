@@ -20,6 +20,9 @@
     "supertest": "^6.3.3",
     "tui-calendar": "^1.15.3"
   },
+  "jest": {
+    "modulePathIgnorePatterns": ["nodejs-selenium-sample/test.js"]
+  },
   "devDependencies": {
     "jest": "^29.5.0"
   }

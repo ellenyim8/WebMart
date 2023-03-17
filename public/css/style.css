@@ -23,7 +23,7 @@ body::-webkit-scrollbar {
 }
 
 .nav-link:hover {
-    color: rgb(140, 173, 172) !important;
+    color: rgb(126, 160, 185) !important;
 }
 
 .r-flex {
@@ -83,7 +83,9 @@ body::-webkit-scrollbar {
 } 
 
 .debugBG{
-    background-color: rgba(240, 73, 73, 0.975);
+    background-color: rgb(172, 166, 230);
+    border: 1px solid rgb(0, 0, 0);
+    /*background-color: rgba(240, 73, 73, 0.975);*/
 }
 
 .fullBG {
@@ -93,7 +95,13 @@ body::-webkit-scrollbar {
 }
 
 .friendBG{
-   background-color: rgb(255, 199, 199);
+   background-color: rgb(199,236,255);
+   border: 2px solid rgb(0, 0, 0); 
+   /*background-color: rgb(255, 199, 199);*/
+}
+
+.header {
+    color:rgb(230, 70, 70) 
 }
 
 .price-first {
@@ -130,6 +138,5 @@ body::-webkit-scrollbar {
 }
 
 #profile-img {
-
     cursor: pointer;
 }

@@ -13,7 +13,7 @@ const session = require('express-session')
 const path = require('path')
 
 // multer to I/O image
-const multer = require('multer');
+const multer = require('multer')
 //const upload = multer({dest:'./public/images/'})
 //multer Upload
 
@@ -21,6 +21,19 @@ const upload = multer({
   storage: multer.diskStorage({
       destination(req, file, cb) {
           cb(null, './public/images/item/');
+      },
+      filename(req, file, cb) {
+          const ext = path.extname(file.originalname);
+          cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+      },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+})
+
+const uploadprofile = multer({
+  storage: multer.diskStorage({
+      destination(req, file, cb) {
+          cb(null, './public/images/profile/');
       },
       filename(req, file, cb) {
           const ext = path.extname(file.originalname);
@@ -56,7 +69,7 @@ const userObj = require('./modules/user.js')
 //import models for MongoDB
 const User = require('./models/User')
 const Item = require('./models/Items')
-const createItem = require('./models/CreateItem') //
+const createItem = require('./models/CreateItem') // 
 
 const app = express()
 const port = 8080
@@ -103,21 +116,23 @@ app.route('/login')
   .post(async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ email }).lean() //searches through all known users for email
-    const sellingItems = await Item.find({$and :[{seller : user.username}, {purchased : false}]}).lean();
-    const soldItems = await Item.find({$and :[{seller : user.username}, {purchased : true}]}).lean();
-    const friendItems = await Item.find({$and: [{seller : user.friends}, {purchased : false}]}).lean();
-    const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
 
     //Latest on Top
+
+    if (!user) {
+      return res.redirect('/login?error=1') //No user found error
+    }
+
+    const sellingItems = await Item.find({$and :[{seller : user.username}, {purchased : false}]}).lean();
+    const soldItems = await Item.find({$and :[{seller : user.username}, {purchased : true}]}).lean();
+    const friendItems = await Item.find({$and: [{seller : {$ne : user.username}}, {purchased : false}]}).lean();
+    const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
+
     friendItems.sort(function (a,b){
       if (a.creationDate < b.creationDate) {return 1;}
       if (a.creationDate > b.creationDate) {return -1;}
       return 0;
       });
-
-    if (!user) {
-      return res.redirect('/login?error=1') //No user found error
-    }
 
     if (password == user.password) {
       req.session.logged_in = true
@@ -176,6 +191,7 @@ app.get('/removeAllItems', async function(req, ress){
   const user = User.findOne(req.session.username).lean();
   //await User.updateOne({username: "Friend4"}, {$pull: {purchaseHistory: "641138e64680e90bb328eb3e"}})
   await Item.remove({})
+  await User.remove({})
 })
 
 
@@ -244,13 +260,13 @@ app.route('/register')
     await Item.deleteOne({name : item_to_delete})
     res.redirect('/') // CHANGE THIS TO REFRESH PAGE
   })
-
+/*
   //List Items Page Route
   app.get('/itemListing', (req, res) => {
     console.log('Navigating to Items List Page')
     res.render('listItems')
   })
-
+*/
   //CreateItem Page Route
   app.route('/createItem')
     .post(upload.single('chooseFile'), function(req,res){
@@ -359,10 +375,10 @@ app.route('/confirmPurchase')
 
 
   // Overview Page Route
-  app.get('/overview', (req, res) => {
-    console.log('Navigating to Overview/ItemListing Page')
-    res.render('overview')
-  })
+  //app.get('/overview', (req, res) => {
+  //  console.log('Navigating to Overview/ItemListing Page')
+  //  res.render('overview')
+  //})
 
   //need to change the body though
   /*
@@ -389,7 +405,7 @@ app.route('/buyItem')
       await User.updateOne({username: username}, {$addToSet: { 'purchaseHistory': req.body.item}}) //Update Item ID in to purchase History
       await Item.updateOne({_id : req.body.item}, {$set : {purchased : true}});     
       const user = await User.findOne({username}).lean();                                                               //Remove purchased Item from table
-      const friendItems = await Item.find({$and: [{seller : user.friends}, {purchased : false}]}).lean();                                     //Update Session 
+      const friendItems = await Item.find({$and: [{seller : {$ne : user.username}}, {purchased : false}]}).lean();                                     //Update Session 
       const purchaseHistory = await Item.find({$and: [{_id : user.purchaseHistory}, {purchased : true}]}).lean();
       console.log(friendItems);
       //Latest on Top
@@ -490,12 +506,76 @@ app.route('/viewProfile')
     next();                                               //Go to next function "middle ware(?) technique"
 }, friendProfileHandler.getFriendProfile);
 
+
 app.route('/changeprofile')
 .get(async function (req,res){
     const username = req.session.userObj.username;
     const user = await User.findOne({username}).lean();
 
     await User.updateOne({username: user.username}, {$set : {img: "Friend2.png"}})
+});
+
+app.route('/editimg')
+.post(uploadprofile.single('chooseFile'), async function(req,res){
+    var imgname;
+    if(!req.file) { imgname = req.session.img}
+    else{ imgname = req.file.filename}
+    
+    req.session.img = imgname;
+    await User.updateOne({username: req.session.username}, {$set : {img: imgname}})
+
+    res.redirect('/profile')
+})
+
+app.route('/editemail')
+  .post(async function(req,res){
+    const username = req.session.userObj.username;
+    const user = await User.findOne({username}).lean();
+    const email = req.body.email
+    await User.updateOne({username: user.username}, {$set : {email: email}})
+    req.session.email = email
+    console.log(req.session.email)
+    console.log(email)
+    res.redirect('/profile')
+});
+
+app.route('/editusername')
+  .post(async function(req,res){
+    const email = req.session.email;
+    const user = await User.findOne({email}).lean();
+    const curname = req.session.username;
+    const changename = req.body.username
+    await User.updateOne({email: user.email}, {$set : {username: changename}})
+    req.session.username = changename
+    //Username has changed, change the name of items seller
+    await Item.updateMany({seller: curname}, {$set: {seller : changename}})
+    console.log(curname)
+    console.log(changename)
+    const Items = await Item.find({$and :[{seller : req.session.username}, {purchased : false}]}).lean();
+    req.session.myItems = Items; 
+
+    res.redirect('/profile')
+});
+
+app.route('/editabout')
+  .post(async function(req,res){
+    const username = req.session.username;
+    const user = await User.findOne({username}).lean();
+    const about = req.body.about
+    await User.updateOne({username: user.username}, {$set : {about: about}})
+    req.session.about = about
+    res.redirect('/profile')
+});
+
+app.route('/editpassword')
+  .post(async function(req,res){
+    const username = req.session.username;
+    const user = await User.findOne({username}).lean();
+    const password = req.body.password
+    await User.updateOne({username: user.username}, {$set : {password: password}})
+    req.session.password = password
+
+    res.redirect('/profile')
 });
 
 // URL handlers
